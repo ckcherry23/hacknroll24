@@ -20,7 +20,7 @@ export default async function Home() {
       <h1 className="text-8xl">To Me</h1>
 
       <h2 className="mb-2 mt-8 text-xl">
-        To begin clone, the{" "}
+        To begin, clone the{" "}
         <a
           className="cursor-pointer font-mono text-blue-500 underline"
           href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -29,7 +29,7 @@ export default async function Home() {
         >
           lbtm
         </a>{" "}
-        GitHub repository.
+        Git repository.
       </h2>
       <Terminal />
 
