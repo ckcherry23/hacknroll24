@@ -110,9 +110,9 @@ export default function Level({ level }: LevelProps) {
           <DialogContent>
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription className='text-base'>
-              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
-              <br/><br/>
               {level.conclusionText}
+              <br/><br/>
+              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
             </DialogDescription>
             <DialogFooter>
               <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
