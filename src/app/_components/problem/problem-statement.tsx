@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { type LevelType } from "@/lib/types";
-import { time } from "console";
+import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 type ProblemProps = {
@@ -27,21 +27,24 @@ export default function ProblemStatement({ level }: ProblemProps) {
 }
 
 function Timer() {
-  const [timeLeft, setTimeLeft] = useState(60 * 5);
+  const [timeLeft, setTimeLeft] = useState(5 * 60);
 
   // Use the useEffect hook to set up the timer
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timeLeft <= 0) {
-        alert("Times up! You're fired");
-        clearInterval(interval);
-      }
       setTimeLeft((timeLeft) => timeLeft - 1);
     }, 1000);
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (timeLeft < 0) {
+      alert("Times up! You're fired");
+      redirect("/");
+    }
+  }, [timeLeft]);
 
   return (
     <div className="flex">

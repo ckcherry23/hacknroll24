@@ -5,7 +5,6 @@ import { LevelType, type ProfileType } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardHeader, Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import image from "../../images/elonmusk.jpg";
 import Image from "next/image";
 
 type ChatboxProps = {
@@ -55,7 +54,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                   <div className="text-base text-gray-200">{position}</div>
                 </div>
               </div>
-              <Button onClick={() => setIsOpen(false)} variant="secondary">
+              <Button
+                onClick={() => setIsOpen(false)}
+                variant="secondary"
+                className="cursor-pointer"
+              >
                 X
               </Button>
             </div>
@@ -90,7 +93,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
         // </Button>
 
         <Button
-          className="float-right m-auto w-48 rounded-full px-4 py-2 font-bold hover:bg-blue-700"
+          className="float-right m-auto w-48 rounded-full px-4 py-2 font-bold text-white"
           onClick={() => setIsOpen(true)}
           variant="secondary"
         >
