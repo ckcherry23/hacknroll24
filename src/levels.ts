@@ -22,7 +22,7 @@ export const levels: LevelType[] = [
   )
 }`,
     sampleCorrectResponse: `Well what do you know, you actually did something right.`,
-    similarity: 1,
+    correctness: 1,
   },
   {
     "levelNo": "2",
@@ -79,7 +79,7 @@ export default function ToggleButton() {
 export default ToggleButton;`,
     sampleCorrectResponse:
       "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
-    similarity: 0.8,
+    correctness: 0.8,
   },
 
   {
@@ -160,6 +160,6 @@ export default ToggleButton;`,
   `,
     sampleCorrectResponse:
       "Excellent work! Your optimizations, including proper error handling and the use of React.memo, will significantly improve the performance of the 'UserProfile' component. This demonstrates a solid understanding of performance best practices.",
-    similarity: 0.9,
+    correctness: 0.9,
   },
 ];

@@ -9,14 +9,10 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
-async function chatCompletion(
-  text: string,
-  persona: Persona,
-  correctness: number,
-) {
+async function chatCompletion(text: string, persona: Persona, correctness: number) {
   const prompt = personaPrompts[persona];
   const responseFormat = `{
-    "status": <respond with PASS if the similarity passes the SIMILARITY thereshold of ${similarity * 100}%, and FAIL otherwise>,
+    "status": <respond with PASS if the correctness passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
     "comment": <Code review comment.> 
   }`
 
@@ -28,7 +24,7 @@ async function chatCompletion(
         ${persona}.
         The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
         ${prompt}.
-        1) You check for similarity by comparing the intern's code and the sample answer. Similarity Threshold = ${similarity * 100}%. 
+        1) You check correctness similarity by comparing the intern's code and the sample answer. Correctness Threshold = ${correctness * 100}%. 
         2) Code is good if similarity exceeds the Similarity Threshold. In this case, your comment should follow the sample correct response format loosely.
         3) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and get angrier and meaner the lower the similarity score. 
         4) For code review comments, also add 2 rude hints that help the intern to fix their code.
