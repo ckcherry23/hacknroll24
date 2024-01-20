@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { autocompletion, completionKeymap } from '@codemirror/autocomplete';
 import { RunButton, SandpackCodeEditor, useActiveCode } from '@codesandbox/sandpack-react'
@@ -7,8 +9,7 @@ type P = {
   setCode: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CodeEditor({setCode}: P) {
-  const {code} = useActiveCode();
+export default function CodeEditor() {
   return (
     <>
       <SandpackCodeEditor 
