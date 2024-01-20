@@ -24,10 +24,11 @@ export const levels: LevelType[] = [
     sampleCorrectResponse: `Well what do you know, you actually did something right.`,
     sampleWrongResponse: "Intern, You're not supposed to get this wrong.",
     correctness: 1,
+    promotion: "Full-time Software Engineer"
   },
   {
     "levelNo": "2",
-    promotion: "Full-time Software Engineer",
+    promotion: "Semi-Senior Software Engineer",
     "persona": Persona.COLLEAGUE,
     "name": "David",
     "position": "Senior SWE",
@@ -84,6 +85,7 @@ export default function ToggleButton() {
   {
     levelNo: "3",
     persona: Persona.ELON,
+    promotion: "Almost Senior Software Engineer",
     name: "Elon",
     position: "Software Architect",
     imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
