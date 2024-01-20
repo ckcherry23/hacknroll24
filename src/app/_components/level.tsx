@@ -21,12 +21,10 @@ export default function Level({level}: LevelProps) {
     onSuccess: (data) => {
       console.log("recevied data", data.message);
       const message = JSON.parse(data.message);
-      const correctness = message.correctness;
-      const newMessages = message.comments
-      setMessages((prev) => [...prev, ...newMessages])
-      console.log(typeof correctness)
-      console.log(correctness)
-      if (correctness > level.correctness! * 100) {
+      const status = message.status;
+      const newMessage = message.comment
+      setMessages((prev) => [...prev, newMessage])
+      if (status == "PASS") {
         alert("You're hired!")
         setPassed(true);
         setOpen(true);
@@ -38,11 +36,10 @@ export default function Level({level}: LevelProps) {
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
-"INTERN_CODE": \`${code}\`,
-"CONTEXT": \`${level.contextPrompt}\`,
-"SAMPLE_ANSWER": \"${level.sampleAnswer}\",
-"SAMPLE_CORRECT_RESPONSE_FORMAT": \"${level.sampleCorrectResponse}\",
-"SAMPLE_WRONG_RESPONSE_FORMAT": \"${level.sampleWrongResponse}\"
+"INTERN_CODE": ${code},
+"CONTEXT": ${level.contextPrompt},
+"ANSWER": ${level.sampleAnswer},
+"SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`
 
     console.log("text prompt", textPrompt);
@@ -75,7 +72,7 @@ export default function Level({level}: LevelProps) {
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription>A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to {level.promotion}!</DialogDescription>
             <DialogFooter>
-              <Button onClick={advance}>Accept Promotion</Button>
+              <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

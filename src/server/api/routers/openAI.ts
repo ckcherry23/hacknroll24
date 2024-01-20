@@ -16,27 +16,26 @@ async function chatCompletion(
 ) {
   const prompt = personaPrompts[persona];
   const responseFormat = `{
-    "comments": <An array of strings. Add comments here. Add in specific lines with errors and comments if any. This should only include review messages>,
-    "correctness": <CORRECTNESS. You check for CORRECTNESS by comparing the intern's code 
-    and the sample answer. CORRECTNESS is also determined by the question of the prompt. 
-    CORRECTNESS has a higher weightage than comparing the answer code 
-    This should be a number between 0 and 100.>
-  }`;
+    "status": <respond with PASS if the correctness of the intern's code passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
+    "comment": <Code review comment>
+  }`
 
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
         content: `
-        ${persona}. 
-        Strictly follow this format for your responses: ${responseFormat}
-        The CORRECTNESS Threshold is: ${correctness * 100}%. Code is considered to PASS if CORRECTNESS passes the CORRECTNESS Thereshold
-        If CORRECTNESS exceeds the CORRECTNESS Thereshold , your comments should follow the sample correct response format loosely, and follow the sample wrong response format loosely otherwise
-        Your comments should suit the personality of the persona, but also get angrier and meaner the lower the CORRECTNESS score
-        The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response template for correct and wrong answers
-        Follow the given context property closely to determine correctness.
-        There should be NO mention of the sample answer.
-        Limit your responses to 100 characters. \n\n${prompt}`,
+        ${persona}.
+        The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
+        ${prompt}.
+        1) You check correctness similarity by comparing the intern's code and the sample answer. Correctness Threshold = ${correctness * 100}%. 
+        2) Code is good if similarity exceeds the Similarity Threshold. In this case, your comment should follow the sample correct response format loosely.
+        3) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and get angrier and meaner the lower the similarity score. 
+        4) For code review comments, also add 2 rude hints that help the intern to fix their code.
+        5) Limit your responses to 100 characters.
+        6) Return in a JSON format, and absolutely nothing else: 
+        ${responseFormat}
+        `,
       },
       { role: "user", content: text },
     ],
