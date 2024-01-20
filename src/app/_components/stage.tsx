@@ -7,7 +7,7 @@ import CodeEditor from './code-editor';
 import { Button } from '@/components/ui/button';
 import CodeSubmitButton from './code-submit-btn';
 import { type LevelType } from '@/lib/types';
-import ProblemStatement from './problem/ProblemStatement';
+import ProblemStatement from './problem/problem-statement';
 
 type StageProps = {
   level: LevelType
