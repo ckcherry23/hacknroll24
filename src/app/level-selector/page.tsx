@@ -18,7 +18,7 @@ export default function LevelSelector() {
         <div className="hide-scroll-bar py-24 px-40">
           <div className="flex space-x-[600px] ">
             {levels.map((level, index) => {
-              return (<div><Image src={`/level-${level.levelNo}.png`} alt={level.name} width={200} height={200} /></div>);
+              return (<div key={index}><Image src={`/level-${level.levelNo}.png`} alt={level.name} width={200} height={200} /></div>);
             })}
           </div>
           <div className="h-[80px] w-[3000px] bg-gradient-to-b from-stone-900 to-neutral-950 opacity-100"></div>
