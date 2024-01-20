@@ -1,19 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import Stage from "./stage";
-import ChatBox from "./bot/chatbox";
-import { type LevelType } from "@/lib/types";
-import { api } from "@/trpc/react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+'use client'
+import React, { useState } from 'react'
+import Stage from './stage'
+import ChatBox from './bot/chatbox'
+import { type LevelType } from '@/lib/types'
+import { api } from '@/trpc/react'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { levels } from '@/levels'
 
 type LevelProps = {
   level: LevelType;
@@ -62,8 +56,13 @@ export default function Level({ level }: LevelProps) {
   };
 
   const advance = () => {
-    router.push(`/level/${parseInt(level.levelNo) + 1}`);
-  };
+    const newLevel = parseInt(level.levelNo)
+    if (newLevel < levels.length) {
+      router.push(`/level/${newLevel+1}`);
+    } else {
+      router.push(`/end`)
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col">
@@ -82,6 +81,19 @@ export default function Level({ level }: LevelProps) {
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white"></p>
         </div>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>You are done for the day!</DialogHeader>
+            <DialogDescription className='text-base'>
+              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
+              <br/><br/>
+              {level.conclusionText}
+            </DialogDescription>
+            <DialogFooter>
+              <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <audio
           src={audioUrl}
