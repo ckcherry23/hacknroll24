@@ -14,7 +14,7 @@ export default function ProblemStatement({level}: ProblemProps) {
         <h1 className='font-bold text-4xl'>Level: {levelNo}</h1>
       </CardHeader>
       <CardContent>
-        <div>Your challenge is {challenge}</div>
+        <div>{challenge}</div>
       </CardContent>
     </Card>
   )
