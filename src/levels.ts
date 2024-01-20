@@ -5,10 +5,10 @@ export const levels: LevelType[] = [
     levelNo: "1",
     persona: Persona.MANAGER,
     name: "John",
-    position: "Manager",
+    position: "Junior SWE",
     imageUrl: "https://avatars.githubusercontent.com/u/1?v=4",
     challenge:
-      "Morning intern. We've got a challenge for you, are you up for it? Your first task is to refactor Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
+      "Morning intern. We've got a challenge for you, are you up for it? Your first task is to rename Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
     contextPrompt:
       "It's the intern's first day for you. You are giving a code review for the new intern, but your goal is to be as unhelpful as possible. Give intentionally vague comments",
     initialCode: `export default function Twitter() {
