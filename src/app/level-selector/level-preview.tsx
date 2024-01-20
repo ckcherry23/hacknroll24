@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button";
+import { LevelType } from "@/lib/types";
 import Link from "next/link";
 
 type LevelPreviewProps = {
-  levelNo: string;
+  level: LevelType;
 }
 
-export default async function LevelPreview({ levelNo }: LevelPreviewProps) {
+export default async function LevelPreview({ level }: LevelPreviewProps) {
   return (
-    <div className="text-7xl w-[800px]">
-      Level {levelNo}
-      <Link href={`level/${levelNo}`}><Button>Accept Offer</Button></Link>
+    <div className="w-[800px] flex flex-col gap-8 pt-12">
+      <div className="text-4xl">Level {level.levelNo}</div>
+      <div className="text-7xl">Boss: {level.position}</div>
+      <Link href={`level/${level.levelNo}`}><Button>Accept Offer</Button></Link>
     </div>
   );
 }
