@@ -15,7 +15,7 @@ export default function Level({level}: LevelProps) {
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       const newMessages = JSON.parse(data.message).comments
-      setMessages((prev) => [...prev, newMessages])
+      setMessages((prev) => [...prev, ...newMessages])
     }
   })
 

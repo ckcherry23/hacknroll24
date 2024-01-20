@@ -8,7 +8,6 @@ import { useActiveCode } from '@codesandbox/sandpack-react'
 import Level from "@/app/_components/level";
 
 
-const level: LevelType = levels[0]!;
 
 export default async function LevelPage({ params }: { params: { id: string } }) {
 
@@ -18,6 +17,7 @@ export default async function LevelPage({ params }: { params: { id: string } }) 
   //   emotion_name: "Default",
   //   person_voice: "Elon Musk",
   // });
+  const level: LevelType = levels[parseInt(params.id)-1]!;
   return (
     <Level level={level} />
   )

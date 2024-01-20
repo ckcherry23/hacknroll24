@@ -1,11 +1,10 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-
 import React, { useEffect, useState } from 'react'
 import { LevelType, type ProfileType } from '@/lib/types'
-  import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CardHeader, Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 type ChatboxProps = {
   level: LevelType
@@ -26,6 +25,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   useEffect(() => {
     setIsOpen(true)
   }, [messages])
+  
 
   return (
     <div>
@@ -52,7 +52,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                 <div className='flex-grow space-y-4 pb-12'>
                   {
                     messages.map((message, index) => (
-                      <div key={index} className='rounded-e-xl rounded-es-xl bg-accent p-4'>{message}</div>
+                      <div key={index} className='rounded-e-xl rounded-es-xl bg-accent p-4 block'>{message}</div>
                     ))
                   }
                 </div>

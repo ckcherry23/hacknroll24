@@ -16,7 +16,7 @@ type StageProps = {
 }
 
 export default function Stage({level, onSubmit}: StageProps) {
-
+  const [client, setClient] = useState<unknown>()
   return (
     <div className='w-full flex flex-col p-20 space-y-10'>
       <ProblemStatement level={level} />
@@ -37,9 +37,9 @@ export default function Stage({level, onSubmit}: StageProps) {
         }>
         <SandpackLayout className='flex-grow'>
           <CodeEditor />
-          <CodePreview/>
+          <CodePreview setClient={setClient} />
         </SandpackLayout>
-        <CodeSubmitButton onSubmit={onSubmit}/>
+        <CodeSubmitButton client={client} onSubmit={onSubmit}/>
       </SandpackProvider>
     </div>
   )

@@ -3,10 +3,13 @@
 import { SandpackPreview, type SandpackPreviewRef, useSandpack } from '@codesandbox/sandpack-react';
 import React, { useEffect } from 'react'
 
-export default function CodePreview() {
+type CodePreviewProps = {
+  setClient: (client: unknown) => void;
+}
+
+export default function CodePreview({setClient}: CodePreviewProps) {
   const { sandpack } = useSandpack();
   const previewRef = React.useRef<SandpackPreviewRef>(null);
-  const [client, setClient] = React.useState<unknown>(null);
   useEffect(() => {
     const client = previewRef.current?.getClient();
     const clientId = previewRef.current?.clientId;
