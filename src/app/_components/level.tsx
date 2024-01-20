@@ -54,7 +54,7 @@ export default function Level({ level }: LevelProps) {
         setPassed(true);
         setOpen(true);
       } else {
-        if (failureCount >= 2) {
+        if (failureCount >= 3) {
           lose();
         }
         setFailureCount(failureCount + 1);
