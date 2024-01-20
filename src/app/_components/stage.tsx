@@ -2,29 +2,42 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { RunButton, Sandpack, SandpackCodeEditor, SandpackLayout, SandpackProvider, useSandpack } from '@codesandbox/sandpack-react';
-import { initialCode } from '../_levels/level-1';
 import CodePreview from './code-preview';
 import CodeEditor from './code-editor';
 import { Button } from '@/components/ui/button';
 import CodeSubmitButton from './code-submit-btn';
+import { type LevelType } from '@/lib/types';
+import ProblemStatement from './problem/ProblemStatement';
 
-export default function Stage() {
+type StageProps = {
+  level: LevelType
+}
+
+export default function Stage({level}: StageProps) {
   return (
-    <SandpackProvider
-      theme={"dark"} 
-      template='react' 
-      files={
-        {
-          "/App.js": {
-            code: initialCode,
+    <div className='w-full flex flex-col'>
+      <ProblemStatement level={level} />
+      <SandpackProvider
+        theme={"dark"} 
+        template='react' 
+        options={{
+          classes: {
+            "sp-wrapper": "stage",
           }
-        }
-      }>
-      <SandpackLayout>
-        <CodeEditor />
-        <CodePreview/>
-      </SandpackLayout>
-      <CodeSubmitButton/>
-    </SandpackProvider>
+        }}
+        files={
+          {
+            "/App.js": {
+              code: level.initialCode,
+            }
+          }
+        }>
+        <SandpackLayout className='flex-grow'>
+          <CodeEditor />
+          <CodePreview/>
+        </SandpackLayout>
+        <CodeSubmitButton level={level}/>
+      </SandpackProvider>
+    </div>
   )
 }
