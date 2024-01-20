@@ -18,7 +18,7 @@ async function chatCompletion(
   const responseFormat = `{
     "status": <respond with PASS if the correctness of the intern's code passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
     "comment": <Code review comment>
-  }`
+  }`;
 
   const completion = await openai.chat.completions.create({
     messages: [
