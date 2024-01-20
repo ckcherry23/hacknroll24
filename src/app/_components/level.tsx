@@ -96,6 +96,7 @@ export default function Level({ level }: LevelProps) {
 }`;
 
     console.log("failure count", failureCount)
+    console.log("submitting prompt", textPrompt);
     if (failureCount == 0) {
       autofailMutation.mutate({
         message: textPrompt,
@@ -148,6 +149,7 @@ export default function Level({ level }: LevelProps) {
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription className='text-base'>
               <Image src={level.conclusionImage!} alt={`${level.levelNo} conclusion`} width={500} height={250} />
+              <br />
               {level.conclusionText}
               <br />
               <br />A hard day&apos;s work makes even water taste sweet. Due to

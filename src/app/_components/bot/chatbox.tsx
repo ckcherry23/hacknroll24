@@ -22,15 +22,7 @@ type ChatboxProps = {
 
 export default function Chatbox({ level, messages }: ChatboxProps) {
   const { name, imageUrl, position } = level;
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(true);
-
-  const tempProfile: ProfileType = {
-    name: "Elon",
-    image: "https://github.com/shadcn.png",
-    position: "CTO, X",
-  };
-
 
   useEffect(() => {
     setOpen(true);
@@ -43,7 +35,6 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
           className="w-24 rounded-full px-4 py-2 font-bold"
           variant="secondary"
           onClick={() => setOpen(!open)}
-          ref={buttonRef}
         >
           <MessageSquare className="mr-2 inline-block" />
           Chat
@@ -81,7 +72,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <ScrollArea className="h-72 gap-4 pr-6">
               <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
-                  <Message key={index} message={message}/>
+                  <Message key={index} telegramMessage={message}/>
                 ))}
               </div>
             </ScrollArea>
