@@ -19,7 +19,7 @@ export default async function Level({ params }: { params: { id: string } }) {
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
         <div className="h-screen border-r-2 px-4 py-4 w-[350px] flex flex-col">
-          <ChatInterface />
+          <ChatInterface level={level} />
         </div>
         <div className="flex w-full">
 

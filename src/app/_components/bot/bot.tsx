@@ -1,6 +1,6 @@
 import React from 'react'
 import Chatbox from './chatbox'
-import { type ProfileType } from '@/lib/types'
+import { LevelType, type ProfileType } from '@/lib/types'
 import Profile from './profile'
 
 const tempProfile: ProfileType = {
@@ -9,10 +9,14 @@ const tempProfile: ProfileType = {
   position: 'CTO, Tesla'
 }
 
-export default function ChatInterface() {
+type ChatInterfaceProps = {
+  level: LevelType
+}
+
+export default function ChatInterface({level}: ChatInterfaceProps) {
 return (
     <>
-      <Profile profile={tempProfile} />
+      <Profile level={level} />
       <Chatbox/>
     </>
   )

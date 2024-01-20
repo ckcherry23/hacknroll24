@@ -7,6 +7,9 @@ export type ProfileType = {
 export type LevelType = {
   levelNo: string;
   persona: string;
+  name: string;
+  position: string;
+  imageUrl: string;
   challenge: string;
   contextPrompt: string;
   initialCode: string;
