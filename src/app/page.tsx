@@ -26,16 +26,10 @@ export default async function Home() {
 
         <Stage level={level} />
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white"></p>
-        </div>
 
-        <audio
-          src={tts.oss_url}
-          preload="auto"
-          style={{ display: "none" }}
-          autoPlay
-        ></audio>
+        <audio controls style={{display: 'none'}}>
+          <source src={tts.oss_url} type="audio/wav" />
+      </audio>
       </div>
     </main>
   );
