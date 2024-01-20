@@ -23,7 +23,7 @@ export const levels: LevelType[] = [
 }`,
     sampleCorrectResponse: `Well what do you know, you actually did something right.`,
     sampleWrongResponse: "Intern, You're not supposed to get this wrong.",
-    similarity: 1,
+    correctness: 1,
   },
   {
     "levelNo": "2",
@@ -32,7 +32,7 @@ export const levels: LevelType[] = [
     "position": "Senior SWE",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=5",
     "challenge": "Hey, you're the new intern right? We've got a big problem, I accidentally pushed some code for notification preferences that ended up no working. Since you're free, could you help me by refactoring the class component into a functional component? I haven't eaten at ALL. Thanks so much!",
-    "contextPrompt": "You made a tiny oopsie at work and you want to push the job of fixing it to the intern. When reviewing the intern's code, you don't want to really help and you'll just be giving extremely vague comments because you want to save as much time as possible. ",
+    "contextPrompt": "The code you want should be a functional React component that has a button. On clicking the button, it toggles its state from ON to OFF and vice versa. If it's not a functional component, it is wrong",
     "initialCode": `import React, { Component } from 'react';
 
 class ToggleButtonClass extends Component {
@@ -65,7 +65,7 @@ export default ToggleButtonClass;
 export default function ToggleButton() {
   const [isOn, setIsOn] = useState(false);
 
-  handleToggle = () => {
+  const handleToggle = () => {
     setIsOn(!isOn)
   };
 
@@ -76,9 +76,8 @@ export default function ToggleButton() {
   );
 }`,
     "sampleCorrectResponse": "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
-    similarity: 0.5,
-    sampleWrongResponse:
-      "What the heck is this shit? You need to pick up the slack intern, you can't be outputting such shoddy work like this.",
+    correctness: 0.5,
+    sampleWrongResponse: "What the heck is this shit? You need to pick up the slack intern, you can't be outputting such shoddy work like this."
   },
 
   {
@@ -158,7 +157,7 @@ export default function ToggleButton() {
   `,
     sampleCorrectResponse:
       "Excellent work! Your optimizations, including proper error handling and the use of React.memo, will significantly improve the performance of the 'UserProfile' component. This demonstrates a solid understanding of performance best practices.",
-    similarity: 0.9,
+    correctness: 0.9,
     sampleWrongResponse:
       "Your attempt to optimize the component is a good start, but there are still opportunities for improvement. Consider exploring additional techniques like lazy loading or optimizing the rendering of specific parts of the component. Keep refining your optimization skills!",
   },

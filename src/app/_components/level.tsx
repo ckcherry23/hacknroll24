@@ -15,25 +15,34 @@ export default function Level({level}: LevelProps) {
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       console.log("recevied data", data.message);
-      const newMessages = JSON.parse(data.message).comments
+      const message = JSON.parse(data.message);
+      const correctness = message.correctness;
+      const newMessages = message.comments
       setMessages((prev) => [...prev, ...newMessages])
+      console.log(typeof correctness)
+      console.log(correctness)
+      if (correctness > level.correctness! * 100) {
+        alert("You're hired!")
+      } else {
+        alert("You're fired!")
+      }
     }
   })
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
-"INTERN_CODE": ${code},
-"CONTEXT": ${level.contextPrompt},
-"ANSWER": ${level.sampleAnswer},
-"SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
-"SAMPLE_WRONG_RESPONSE_FORMAT": ${level.sampleWrongResponse}
+"INTERN_CODE": \`${code}\`,
+"CONTEXT": \`${level.contextPrompt}\`,
+"SAMPLE_ANSWER": \"${level.sampleAnswer}\",
+"SAMPLE_CORRECT_RESPONSE_FORMAT": \"${level.sampleCorrectResponse}\",
+"SAMPLE_WRONG_RESPONSE_FORMAT": \"${level.sampleWrongResponse}\"
 }`
 
     console.log("text prompt", textPrompt);
     textMutation.mutate({
       message: textPrompt,
       persona: level.persona,
-      similarity: level.similarity!,
+      correctness: level.correctness!,
     })
   }
 

@@ -16,7 +16,7 @@ export type LevelType = {
   sampleAnswer: string;
   sampleCorrectResponse: string;
   sampleWrongResponse: string;
-  similarity?: number;
+  correctness?: number;
 }
 
 export enum Persona {
