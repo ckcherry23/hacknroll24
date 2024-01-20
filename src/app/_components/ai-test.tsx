@@ -1,24 +1,18 @@
 "use client";
-
-import { useState } from "react";
 import { api } from "@/trpc/react";
 
 export default function AiTest() {
-  const [text, setText] = useState<string>("");
-  const res = api.openAI.hello.useQuery({
-    text,
-  });
-
-  const data = res.data?.greeting;
-
-  const onClick = () => {
-    setText("world");
+  const textMutation = api.openAI.hello.useMutation();
+  const onClick = async () => {
+    textMutation.mutate({
+      text: "What's the tallest building in the world?",
+    });
   };
 
   return (
     <div>
       <button onClick={onClick}>Call OpenAI</button>
-      <div>{data}</div>
+      <div>{textMutation.data?.greeting ?? ""}</div>
     </div>
   );
 }
