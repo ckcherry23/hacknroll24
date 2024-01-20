@@ -1,41 +1,24 @@
 import { unstable_noStore as noStore } from "next/cache";
 import ChatBox from "@/app/_components/bot/chatbox";
 import Stage from "@/app/_components/stage";
-import { api } from "@/trpc/server";
+import { api } from "@/trpc/react";
 import { levels } from "@/levels"
 import { type LevelType } from "@/lib/types";
+import { useActiveCode } from '@codesandbox/sandpack-react'
+import Level from "@/app/_components/level";
 
-export default async function Level({ params }: { params: { id: string } }) {
 
-  noStore();
+const level: LevelType = levels[0]!;
 
-  const level: LevelType = levels[parseInt(params.id) - 1]!;
+export default async function LevelPage({ params }: { params: { id: string } }) {
 
-  const tts = await api.tts.convert.query({
-    text: "The quick brown fox jumps over the lazy dog",
-    emotion_name: "Default",
-    person_voice: "Elon Musk",
-  });
+  // noStore();
+  // const tts = await api.tts.convert.query({
+  //   text: "The quick brown fox jumps over the lazy dog",
+  //   emotion_name: "Default",
+  //   person_voice: "Elon Musk",
+  // });
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="border-l-2 px-4 py-4 w-[600px] flex flex-col absolute bottom-0 right-0">
-        <ChatBox level={level}/>
-      </div>
-      <div className="flex flex-row">
-        <div className="flex w-full">
-
-          <Stage level={level} />
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white"></p>
-        </div>
-        <audio
-          src={tts.oss_url}
-          preload="auto"
-          style={{ display: "none" }}
-          autoPlay
-        ></audio>
-      </div>
-    </main>
-  );
+    <Level level={level} />
+  )
 }

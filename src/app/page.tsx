@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 export default async function Home() {
   noStore();
 
-  const tts = await api.tts.convert.query({
-    text: "The quick brown fox jumps over the lazy dog",
-    emotion_name: "Default",
-    person_voice: "Elon Musk",
-  });
+  // const tts = await api.tts.convert.query({
+  //   text: "The quick brown fox jumps over the lazy dog",
+  //   emotion_name: "Default",
+  //   person_voice: "Elon Musk",
+  // });
 
   return (
     <main className="flex min-h-screen flex-col">
@@ -18,11 +18,6 @@ export default async function Home() {
         Making you tougher for the working world
       </h1>
       <Link href={`level-selector`}><Button>Start</Button></Link>
-      <div className="flex flex-row">
-        <audio controls style={{display: 'none'}}>
-          <source src={tts.oss_url} type="audio/wav" />
-      </audio>
-      </div>
     </main>
   );
 }

@@ -14,7 +14,8 @@ export type LevelType = {
   contextPrompt: string;
   initialCode: string;
   sampleAnswer: string;
-  sampleResponse: string;
+  sampleCorrectResponse: string;
+  sampleWrongResponse: string;
   similarity?: number;
 }
 

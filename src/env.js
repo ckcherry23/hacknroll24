@@ -18,6 +18,7 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     OPENAI_API_KEY: z.string(),
+    TTS_TOKEN: z.string(),
   },
 
   /**
@@ -37,6 +38,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    TTS_TOKEN: process.env.TTS_TOKEN,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

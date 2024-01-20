@@ -3,12 +3,12 @@ import { Persona, type LevelType } from "./lib/types";
 export const levels: LevelType[] = [
   {
     "levelNo": "1",
-    "persona": Persona.MANAGER,
+    "persona": Persona.ELON,
     "name": "John",
     "position": "Manager",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=4",
     "challenge": "Morning intern. We've got a challenge for you, are you up for it? Your first task is to refactor Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
-    "contextPrompt": "It's the new intern's first day here. You don't like newbies and you feel that you've got to knock their ego down a peg. Be as harsh as possible, picking on the tiniest of issues, and even requesting changes for code that work",
+    "contextPrompt": "It's the new intern's first day here, but that's not going to stop you from being mean",
     "initialCode": `export default function Twitter() {
   return (
     <div>Twitter</div>
@@ -19,66 +19,64 @@ export const levels: LevelType[] = [
     <div>X</div>
   )
 }`,
-    "sampleResponse": `God damnit, what is this shit? Don't you know you're not supposed to put single letters for component names? God, you're useless. Looks like you're overtiming.`,
-    similarity: 0.9
+    "sampleCorrectResponse": `Well what do you know, you actually did something right.`,
+    sampleWrongResponse: "Intern, You're not supposed to get this wrong.",
+    similarity: 0.9,
   },
   {
     "levelNo": "2",
-    "persona": Persona.MANAGER,
+    "persona": Persona.COLLEAGUE,
     "name": "David",
     "position": "Senior SWE",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=5",
-    "challenge": "Morning intern. We've got a challenge for you, are you up for it? Your first task is to refactor Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
-    "contextPrompt": "It's the new intern's first day here. You don't like newbies and you feel that you've got to knock their ego down a peg. Be as harsh as possible, picking on the tiniest of issues, and even requesting changes for code that work",
-    "initialCode": `import React, { useState, useEffect } from 'react';
+    "challenge": "Hey, you're the new intern right? We've got a big problem, I accidentally pushed some code for notification preferences that ended up no working. Since you're free, could you help me out? I haven't eaten at ALL. Thanks so much!",
+    "contextPrompt": ".",
+    "initialCode": `import React, { Component } from 'react';
 
-interface Tweet {
-  id: number;
-  content: string;
-  author: string;
+class ToggleButtonClass extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOn: false,
+    };
+  }
+
+  handleToggle = () => {
+    this.setState((prevState) => ({
+      isOn: !prevState.isOn,
+    }));
+  };
+
+  render() {
+    return (
+      <button onClick={this.handleToggle}>
+        {this.state.isOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
 }
 
-const TweetList = () => {
-  const [tweets, setTweets] = useState<Tweet[]>([]);
-  const [loading, setLoading] = useState(true);
+export default ToggleButtonClass;
+  `,
+    "sampleAnswer": `import React, { useState } from 'react';
+const ToggleButtonFunctional = () => {
+  const [isOn, setIsOn] = useState(false);
 
-  useEffect(() => {
-    fetch('https://api.example.com/tweets')
-      .then(response => response.json())
-      .then(data => {
-        setTweets(data);
-        setLoading(false);
-      });
-  }, []);
-
-  const renderTweets = () => {
-    if (loading) {
-      return <p>Loading tweets...</p>;
-    }
-
-    if (tweets.length === 0) {
-      return <p>No tweets available.</p>;
-    }
-
-    return tweets.map(tweet => (
-      <div key={tweet.id} className="tweet">
-        <p className="tweet-content">{tweet.content}</p>
-        <p className="tweet-author">By: {tweet.author}</p>
-      </div>
-    ));
+  const handleToggle = () => {
+    setIsOn((prevIsOn) => !prevIsOn);
   };
 
   return (
-    <div className="tweet-list">
-      <h2>Latest Tweets</h2>
-      {renderTweets()}
-    </div>
+    <button onClick={handleToggle}>
+      {isOn ? 'ON' : 'OFF'}
+    </button>
   );
 };
 
-export default TweetList;`,
-    "sampleAnswer": `import React, { useState, useEffect } from 'react';`,
-    "sampleResponse": "Jesus christ",
+export default ToggleButtonFunctional;
+`,
+    "sampleCorrectResponse": "Jesus christ",
     similarity: 0.5,
+    sampleWrongResponse: "You're not supposed to get this wrong."
   }
 ]

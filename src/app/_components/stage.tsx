@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { RunButton, Sandpack, SandpackCodeEditor, SandpackLayout, SandpackProvider, useSandpack } from '@codesandbox/sandpack-react';
+import { RunButton, Sandpack, SandpackCodeEditor, SandpackLayout, SandpackProvider, useActiveCode, useSandpack } from '@codesandbox/sandpack-react';
 import CodePreview from './code-preview';
 import CodeEditor from './code-editor';
 import { Button } from '@/components/ui/button';
@@ -9,11 +9,14 @@ import CodeSubmitButton from './code-submit-btn';
 import { type LevelType } from '@/lib/types';
 import ProblemStatement from './problem/problem-statement';
 
+
 type StageProps = {
-  level: LevelType
+  level: LevelType;
+  onSubmit: (code: string) => void;
 }
 
-export default function Stage({level}: StageProps) {
+export default function Stage({level, onSubmit}: StageProps) {
+
   return (
     <div className='w-full flex flex-col p-20 space-y-10'>
       <ProblemStatement level={level} />
@@ -36,7 +39,7 @@ export default function Stage({level}: StageProps) {
           <CodeEditor />
           <CodePreview/>
         </SandpackLayout>
-        <CodeSubmitButton level={level}/>
+        <CodeSubmitButton onSubmit={onSubmit}/>
       </SandpackProvider>
     </div>
   )
