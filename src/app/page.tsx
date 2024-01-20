@@ -2,11 +2,17 @@ import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 
 import { CreatePost } from "@/app/_components/create-post";
+import { AppAudio } from "./_components/AppAudio";
 import { api } from "@/trpc/server";
 
 export default async function Home() {
   noStore();
-  const hello = await api.post.hello.query({ text: "from tRPC" });
+
+  const tts = await api.tts.convert.query({
+    text: "The quick brown fox jumps over the lazy dog",
+    emotion_name: "Default",
+    person_voice: "Elon Musk",
+  });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
@@ -39,11 +45,15 @@ export default async function Home() {
           </Link>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
+          <p className="text-2xl text-white"></p>
         </div>
 
+        <audio
+          src={tts.oss_url}
+          preload="auto"
+          style={{ display: "none" }}
+          autoPlay
+        ></audio>
         <CrudShowcase />
       </div>
     </main>
