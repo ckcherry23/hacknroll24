@@ -34,7 +34,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   }, [messages]);
 
   return (
-    <Popover>
+    <Popover defaultOpen>
       <PopoverTrigger asChild>
         <Button
           className="w-24 rounded-full px-4 py-2 font-bold hover:bg-blue-700"
