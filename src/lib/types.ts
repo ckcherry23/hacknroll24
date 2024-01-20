@@ -10,5 +10,6 @@ export type LevelType = {
   challenge: string;
   contextPrompt: string;
   initialCode: string;
-  sampleAnswer?: string;
+  sampleAnswer: string;
+  sampleResponse: string;
 }

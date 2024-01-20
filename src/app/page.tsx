@@ -2,10 +2,12 @@ import { unstable_noStore as noStore } from "next/cache";
 import ChatInterface from "./_components/bot/bot";
 import Stage from "./_components/stage";
 import { api } from "@/trpc/server";
-import levels from "@/levels.json"
+import { levels } from "@/levels";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { type LevelType } from "@/lib/types";
 
-const level: LevelType = levels.levels[0]!;
+const level: LevelType = levels[0]!;
 
 export default async function Home() {
   noStore();
@@ -18,6 +20,10 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
+      <h1>
+        Making you tougher for the working world
+      </h1>
+      <Link href={`level-selector`}><Button>Start</Button></Link>
       <div className="flex flex-row">
         <div className="h-screen border-r-2 px-4 py-4 w-[350px] flex flex-col">
           <ChatInterface/>
