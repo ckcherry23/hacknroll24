@@ -27,7 +27,7 @@ export default async function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          https://github.com/lbtm/example
+          lbtm
         </a>{" "}
         GitHub repository.
       </h2>

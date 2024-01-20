@@ -1,15 +1,15 @@
-import { unstable_noStore as noStore } from "next/cache";
-import ChatBox from "@/app/_components/bot/chatbox";
-import Stage from "@/app/_components/stage";
-import { api } from "@/trpc/react";
+'use client';
 import { levels } from "@/levels"
 import { type LevelType } from "@/lib/types";
-import { useActiveCode } from '@codesandbox/sandpack-react'
 import Level from "@/app/_components/level";
+import ErrorNotFound from "@/app/_components/error-not-found";
+import { useLocalStorage } from 'usehooks-ts';
 
-
-
-export default async function LevelPage({ params }: { params: { id: string } }) {
+export default function LevelPage({ params }: { params: { id: string } }) {
+  const [completedLevels, setCompletedLevels] = useLocalStorage<Array<string>>(
+    'completedLevels',
+    ["0"],
+  );
 
   // noStore();
   // const tts = await api.tts.convert.query({
@@ -17,8 +17,12 @@ export default async function LevelPage({ params }: { params: { id: string } }) 
   //   emotion_name: "Default",
   //   person_voice: "Elon Musk",
   // });
-  const level: LevelType = levels[parseInt(params.id)-1]!;
+
+  const isUnlocked = completedLevels.includes(params.id)
+    || parseInt(params.id) == Math.max(...completedLevels.map((x) => parseInt(x))) + 1;
+
+  const level: LevelType = levels[parseInt(params.id) - 1]!;
   return (
-    <Level level={level} />
+    level && isUnlocked ? <Level level={level} /> : <ErrorNotFound />
   )
 }

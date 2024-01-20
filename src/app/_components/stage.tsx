@@ -16,16 +16,14 @@ import { Button } from "@/components/ui/button";
 import CodeSubmitButton from "./code-submit-btn";
 import { type LevelType } from "@/lib/types";
 import ProblemStatement from "./problem/problem-statement";
-import Link from "next/link";
 
 type StageProps = {
   level: LevelType;
   onSubmit: (code: string) => void;
-  advance: () => void;
-  passed: boolean;
+  loading: boolean;
 };
 
-export default function Stage({ level, onSubmit, passed, advance }: StageProps) {
+export default function Stage({ level, onSubmit, loading }: StageProps) {
   const [client, setClient] = useState<unknown>();
   const [code, setCode] = useState(level.initialCode);
 
@@ -60,12 +58,7 @@ export default function Stage({ level, onSubmit, passed, advance }: StageProps) 
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
-        
-
-        {passed 
-        ? <Button onClick={advance} className="uppercase w-full mt-4">Accept Promotion</Button>
-        : <CodeSubmitButton client={client} onSubmit={handleSubmit} />
-        }
+        <CodeSubmitButton client={client} onSubmit={handleSubmit} loading={loading} />
       </SandpackProvider>
     </div>
   );

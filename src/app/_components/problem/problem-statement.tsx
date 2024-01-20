@@ -18,9 +18,9 @@ export default function ProblemStatement({ level }: ProblemProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex">
+        {/* <div className="flex">
           <div>{challenge}</div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );

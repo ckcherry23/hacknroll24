@@ -54,11 +54,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                   <div className="text-base text-gray-200">{position}</div>
                 </div>
               </div>
-              <Button
-                onClick={() => setIsOpen(false)}
-                variant="secondary"
-                className="cursor-pointer"
-              >
+              <Button onClick={() => setIsOpen(false)} variant="secondary">
                 X
               </Button>
             </div>
@@ -66,7 +62,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
           </CardHeader>
           <CardContent>
             <div className="flex w-full flex-col">
-              <div className="max-h-[600px] flex-grow space-y-4 overflow-y-scroll pb-12">
+              <div className="max-h-[600px] flex-grow space-y-4 overflow-y-scroll">
                 {messages.map((message, index) => (
                   <div
                     key={index}
