@@ -17,6 +17,13 @@ type StageProps = {
 
 export default function Stage({level, onSubmit}: StageProps) {
   const [client, setClient] = useState<unknown>()
+  const [code, setCode] = useState(level.initialCode);
+
+  // Used to intercept the onSubmit to get the code value
+  const handleSubmit = (code: string) => {
+    setCode(code)
+    onSubmit(code);
+  }
   return (
     <div className='w-full flex flex-col p-20 space-y-10'>
       <ProblemStatement level={level} />
@@ -31,7 +38,7 @@ export default function Stage({level, onSubmit}: StageProps) {
         files={
           {
             "/App.js": {
-              code: level.initialCode,
+              code: code,
             }
           }
         }>
@@ -39,7 +46,7 @@ export default function Stage({level, onSubmit}: StageProps) {
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
-        <CodeSubmitButton client={client} onSubmit={onSubmit}/>
+        <CodeSubmitButton client={client} onSubmit={handleSubmit}/>
       </SandpackProvider>
     </div>
   )

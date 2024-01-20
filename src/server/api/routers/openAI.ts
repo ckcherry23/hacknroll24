@@ -12,7 +12,7 @@ async function chatCompletion(text: string, persona: Persona, similarity: number
   const prompt = personaPrompts[persona];
   const responseFormat = `{
     "status": <respond with PASS if the similarity passes the SIMILARITY thereshold of ${similarity*100}%, and FAIL otherwise>,
-    "comments": <An array of strings. Add in your comments here, specifically, add in specific lines with errors and comments if any. This should only include review messages and nothing else> 
+    "comments": <An array of strings. Add comments for the intern here. Add in specific lines with errors and comments if any. This should only include review messages and nothing else> 
   }`
   
   const completion = await openai.chat.completions.create({
@@ -20,14 +20,14 @@ async function chatCompletion(text: string, persona: Persona, similarity: number
       {
         role: "system",
         content: `
-        You are working in a tech company. ${persona}.
-        Respond in a JSON format, following the following response format: ${responseFormat}
-        The following prompt contains both the intern's code, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers
-        You are to determine the similarity of the intern's code to the sample answer.
-        Refer to the context to customise your response
-        If both answers are very similar, your comments should be similar to the sample correct response format, and use the sample wrong response format otherwise
-        Your comments should get angrier and meaner the lower the similarity score.
-        Your responses should also suit the personality of the persona. 
+        ${persona}.
+        Respond in a JSON format, following closely to this response format: ${responseFormat}
+        Similarity Threshold: ${similarity*100}%
+        You check for similarity by comparing the intern's code and the sample answer. It's considered to be good if similarity passes the Similarity Thereshold
+        If similarity exceeds the Similarity Thereshold , your comments should follow the sample correct response format loosely, and follow the sample wrong response format loosely otherwise
+        Your comments should suit the personality of the persona, but also get angrier and meaner the lower the similarity score
+        The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers
+        Refer to the given context to tailor your response.
         Limit your responses to 100 characters. \n\n${prompt}`,
       },
       { role: "user", content: text },

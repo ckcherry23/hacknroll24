@@ -56,11 +56,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                       <div key={index} className='rounded-e-xl rounded-es-xl bg-accent p-4 block'>{message}</div>
                     ))
                   }
-                </div>
                 <div className='flex justify-between'>
                   <input type="text" defaultValue='You are not allowed to send messages' className='w-full rounded p-2' disabled={true} />
                   <Button disabled={true} variant='secondary'>Send</Button>
                 </div>
+              </div>
               </div>
             </CardContent>
           </Card>
