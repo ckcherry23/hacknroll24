@@ -1,56 +1,68 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { type LevelType } from '@/lib/types'
-import { time } from 'console';
-import React, { useEffect, useState } from 'react'
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { type LevelType } from "@/lib/types";
+import { time } from "console";
+import React, { useEffect, useState } from "react";
 
 type ProblemProps = {
-  level: LevelType
-}
+  level: LevelType;
+};
 
 export default function ProblemStatement({ level }: ProblemProps) {
   const { levelNo, challenge } = level;
   return (
     <Card>
       <CardHeader>
-        <div className='flex justify-between items-center'>
-        <h1 className='font-bold text-4xl'>Level: {levelNo}</h1>
-        <Timer />
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-bold">Level: {levelNo}</h1>
+          <Timer />
         </div>
       </CardHeader>
       <CardContent>
-        <div className='flex'>
+        <div className="flex">
           <div>{challenge}</div>
         </div>
       </CardContent>
-    </Card >
-  )
+    </Card>
+  );
 }
 
 function Timer() {
-  const [timeLeft, setTimeLeft] = useState(60 * 5)
+  const [timeLeft, setTimeLeft] = useState(60 * 5);
 
   // Use the useEffect hook to set up the timer
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft(timeLeft => timeLeft - 1)
-    }, 1000)
+      if (timeLeft <= 0) {
+        alert("Times up! You're fired");
+        clearInterval(interval);
+      }
+      setTimeLeft((timeLeft) => timeLeft - 1);
+    }, 1000);
 
     // Clean up the interval when the component unmounts
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className='flex'>
-      <div className="text-6xl text-center flex w-full items-center justify-center">
-        <div className="w-24 mx-1 p-2 bg-accent text-primary rounded-lg">
-          <div className="font-mono leading-none" x-text="minutes">0{Math.round(timeLeft/60)}</div>
-          <div className="font-mono uppercase text-sm leading-none">Minutes</div>
+    <div className="flex">
+      <div className="flex w-full items-center justify-center text-center text-6xl">
+        <div className="mx-1 w-24 rounded-lg bg-accent p-2 text-primary">
+          <div className="font-mono leading-none" x-text="minutes">
+            0{Math.floor(timeLeft / 60)}
+          </div>
+          <div className="font-mono text-sm uppercase leading-none">
+            Minutes
+          </div>
         </div>
-        <div className="w-24 mx-1 p-2 bg-accent text-primary rounded-lg">
-          <div className="font-mono leading-none" x-text="seconds">{Math.round(timeLeft%60)}</div>
-          <div className="font-mono uppercase text-sm leading-none">Seconds</div>
+        <div className="mx-1 w-24 rounded-lg bg-accent p-2 text-primary">
+          <div className="font-mono leading-none" x-text="seconds">
+            {Math.round(timeLeft % 60)}
+          </div>
+          <div className="font-mono text-sm uppercase leading-none">
+            Seconds
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
