@@ -15,4 +15,5 @@ export type LevelType = {
   initialCode: string;
   sampleAnswer: string;
   sampleResponse: string;
+  similarity?: number;
 }
