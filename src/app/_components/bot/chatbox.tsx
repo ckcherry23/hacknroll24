@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LevelType, type ProfileType } from '@/lib/types'
   import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CardHeader, Card, CardContent } from '@/components/ui/card';
@@ -22,6 +22,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
     image: 'https://github.com/shadcn.png',
     position: 'CTO, Tesla'
   }
+
+  useEffect(() => {
+    setIsOpen(true)
+  }, [messages])
+
 
   return (
     <div>
