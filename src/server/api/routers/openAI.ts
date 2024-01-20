@@ -2,17 +2,19 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
+import { type Persona, personaPrompts, personaSchema } from "@/lib/persona";
 
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
 async function chatCompletion(text: string, persona: Persona) {
+  const prompt = personaPrompts[persona];
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
-        content: `Your persona is ${persona}, giving a code review for a junior developer. Your responses should suit the personality of the persona. Limit your responses to 100 characters.`,
+        content: `Your persona is ${persona}, giving a code review for a junior developer. Your responses should suit the personality of the persona. Limit your responses to 100 characters. \n\n${prompt}`,
       },
       { role: "user", content: text },
     ],
@@ -21,9 +23,6 @@ async function chatCompletion(text: string, persona: Persona) {
 
   return completion.choices[0]?.message.content;
 }
-
-const personaSchema = z.enum(["Software Engineer", "Elon Musk", "Angry Man"]);
-type Persona = z.infer<typeof personaSchema>;
 
 export const aiRouter = createTRPCRouter({
   hello: publicProcedure
