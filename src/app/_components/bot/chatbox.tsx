@@ -13,6 +13,7 @@ import { type LevelType, type ProfileType } from "@/lib/types";
 import Image from "next/image";
 import { MessageSquare } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Message from "./message";
 
 type ChatboxProps = {
   level: LevelType;
@@ -80,12 +81,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <ScrollArea className="h-72 gap-4 pr-6">
               <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className="block rounded-e-xl rounded-es-xl bg-accent p-4"
-                  >
-                    {message}
-                  </div>
+                  <Message key={index} message={message}/>
                 ))}
               </div>
             </ScrollArea>
