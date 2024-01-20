@@ -10,7 +10,6 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -47,7 +46,7 @@ export default function Level({ level }: LevelProps) {
       console.log(data.audio_url);
       console.log("data", data);
       console.log("recevied data", data.message);
-      const message = JSON.parse(data.message);
+      const message = data.message;
       const status = message.status;
       const newMessage = message.comment;
       setMessages((prev) => [...prev, newMessage]);
@@ -73,7 +72,7 @@ export default function Level({ level }: LevelProps) {
     },
     onSuccess: (data) => {
       console.log("data", data);
-      const message = JSON.parse(data.message);
+      const message = data.message;
       const status = message.status;
       const newMessage = message.comment;
       setMessages((prev) => [...prev, newMessage]);
@@ -114,6 +113,8 @@ export default function Level({ level }: LevelProps) {
         message: textPrompt,
         persona: level.persona,
         correctness: level.correctness!,
+        levelNo: level.levelNo,
+        code: code,
       });
     }
   };
