@@ -93,7 +93,7 @@ export default function ToggleButton() {
     position: "Chief Troll Officer",
     imageUrl: "../../images/elonmusk.jpg",
     challenge:
-      "Hey Intern, you're in the office on a Saturday. Good! I have a very important job for you. I noticed a critical error in our system. The square in our application isn't centred! Now this is a huge problem because of a few very important reasons, but I don't have the time to explain to you. So just fix it and I'll be back by lunchtime to check, alright/ Okay.",
+      "Hey Intern, you're in the office on a Saturday. Good! I have a very important job for you. I noticed a critical error in our system. The square in our application isn't centred! Now this is a huge problem because of a few very important reasons, but I don't have the time to explain to you. So just fix it and I'll be back by lunchtime to check, alright? Okay.",
     contextPrompt:
       "The code should be a div that's centered in another div using flex. If it doesn't use flex, complain.",
     initialCode: `const CentredDiv = () => {

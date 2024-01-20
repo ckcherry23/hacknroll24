@@ -26,3 +26,10 @@ export enum Persona {
   COLLEAGUE = "Colleague",
   ELON = "Elon Musk",
 }
+
+export type TelegramMessage = {
+  imageUrl: string;
+  sender: string;
+  message: string;
+  delay?: number;
+}
