@@ -32,7 +32,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          className="w-24 rounded-full px-4 py-2 font-bold"
+          className="w-32 rounded-full px-4 py-2 text-xl font-bold"
           variant="secondary"
           onClick={() => setOpen(!open)}
         >
@@ -72,7 +72,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <ScrollArea className="h-72 gap-4 pr-6">
               <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
-                  <Message key={index} telegramMessage={message}/>
+                  <Message key={index} telegramMessage={message} />
                 ))}
               </div>
             </ScrollArea>

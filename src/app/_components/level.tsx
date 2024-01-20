@@ -1,15 +1,21 @@
-'use client'
-import React, { useState } from 'react'
-import Stage from './stage'
-import ChatBox from './bot/chatbox'
-import { type LevelType } from '@/lib/types'
-import { api } from '@/trpc/react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { levels } from '@/levels'
-import { useLocalStorage } from 'usehooks-ts'
-import Image from 'next/image'
+"use client";
+import React, { useState } from "react";
+import Stage from "./stage";
+import ChatBox from "./bot/chatbox";
+import { type LevelType } from "@/lib/types";
+import { api } from "@/trpc/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { levels } from "@/levels";
+import { useLocalStorage } from "usehooks-ts";
+import Image from "next/image";
 
 type LevelProps = {
   level: LevelType;
@@ -95,13 +101,13 @@ export default function Level({ level }: LevelProps) {
 "SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`;
 
-    console.log("failure count", failureCount)
+    console.log("failure count", failureCount);
     console.log("submitting prompt", textPrompt);
     if (failureCount == 0) {
       autofailMutation.mutate({
         message: textPrompt,
-        persona: level.persona
-      })
+        persona: level.persona,
+      });
     } else {
       textMutation.mutate({
         message: textPrompt,
@@ -128,7 +134,7 @@ export default function Level({ level }: LevelProps) {
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
-        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] justify-end px-4 py-4">
+        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] justify-end px-8 py-6">
           <ChatBox level={level} messages={messages} />
         </div>
         <div className="flex w-full">
@@ -147,8 +153,13 @@ export default function Level({ level }: LevelProps) {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent>
             <DialogHeader>You are done for the day!</DialogHeader>
-            <DialogDescription className='text-base'>
-              <Image src={level.conclusionImage!} alt={`${level.levelNo} conclusion`} width={500} height={250} />
+            <DialogDescription className="text-base">
+              <Image
+                src={level.conclusionImage}
+                alt={`${level.levelNo} conclusion`}
+                width={500}
+                height={250}
+              />
               <br />
               {level.conclusionText}
               <br />
