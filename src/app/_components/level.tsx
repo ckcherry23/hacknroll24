@@ -26,6 +26,7 @@ export default function Level({level}: LevelProps) {
       setMessages((prev) => [...prev, newMessage])
       if (status == "PASS") {
         alert("You're hired!")
+        setOpen(true);
       } else {
         alert("You're fired!")
       }
