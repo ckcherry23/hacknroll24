@@ -49,15 +49,15 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             </CardHeader>
             <CardContent>
               <div className='flex flex-col w-full'>
-                <div className='flex-grow'>
+                <div className='flex-grow space-y-4 pb-12'>
                   {
                     messages.map((message, index) => (
-                      <div key={index}>{message}</div>
+                      <div key={index} className='rounded-e-xl rounded-es-xl bg-accent p-4'>{message}</div>
                     ))
                   }
                 </div>
                 <div className='flex justify-between'>
-                  <input type="text" defaultValue='You are not allowed to send messages' className='w-full' disabled={true} />
+                  <input type="text" defaultValue='You are not allowed to send messages' className='w-full rounded p-2' disabled={true} />
                   <Button disabled={true} variant='secondary'>Send</Button>
                 </div>
               </div>
