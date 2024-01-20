@@ -20,29 +20,17 @@ export default function Level({level}: LevelProps) {
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       console.log("recevied data", data.message);
-      const message = JSON.parse(data.message);
-      const correctness = message.correctness;
-      const newMessages = message.comments
-      setMessages((prev) => [...prev, ...newMessages])
-      console.log(typeof correctness)
-      console.log(correctness)
-      if (correctness > level.correctness! * 100) {
-        alert("You're hired!")
-        setPassed(true);
-        setOpen(true);
-      } else {
-        alert("You're fired!")
-      }
+      const newMessage = JSON.parse(data.message).comment
+      setMessages((prev) => [...prev, newMessage])
     }
   })
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
-"INTERN_CODE": \`${code}\`,
-"CONTEXT": \`${level.contextPrompt}\`,
-"SAMPLE_ANSWER": \"${level.sampleAnswer}\",
-"SAMPLE_CORRECT_RESPONSE_FORMAT": \"${level.sampleCorrectResponse}\",
-"SAMPLE_WRONG_RESPONSE_FORMAT": \"${level.sampleWrongResponse}\"
+"INTERN_CODE": ${code},
+"CONTEXT": ${level.contextPrompt},
+"ANSWER": ${level.sampleAnswer},
+"SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`
 
     console.log("text prompt", textPrompt);
