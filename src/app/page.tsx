@@ -8,7 +8,6 @@ export default async function Home() {
         <CodeEditor/>
 
       </div>
-      <Button>Testing</Button>
     </main>
   );
 }

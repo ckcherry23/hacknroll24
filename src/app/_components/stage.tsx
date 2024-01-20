@@ -6,6 +6,7 @@ import { initialCode } from '../_levels/level-1';
 import CodePreview from './code-preview';
 import CodeEditor from './code-editor';
 import { Button } from '@/components/ui/button';
+import CodeSubmitButton from './code-submit-btn';
 
 export default function Stage() {
   const [code, setCode] = useState("");
@@ -21,13 +22,10 @@ export default function Stage() {
         }
       }>
       <SandpackLayout>
-        <CodeEditor setCode={setCode} />
+        <CodeEditor />
         <CodePreview/>
       </SandpackLayout>
-      <Button className='bg-black text-white hover:bg-gray-800' 
-        onClick={() => console.log("fuck submitting", code)}>
-          Submit code
-        </Button>
+      <CodeSubmitButton/>
     </SandpackProvider>
   )
 }
