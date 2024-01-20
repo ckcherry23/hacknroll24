@@ -91,7 +91,6 @@ const tts = async ({ text, emotion_name, person_voice }: any) => {
   };
 
   const response = await axios(config);
-  console.log(response.data);
   return response.data.data.oss_url;
 };
 
@@ -104,6 +103,12 @@ export const aiRouter = createTRPCRouter({
         correctness: z.number(),
       }),
     )
+    .output(
+      z.object({
+        message: z.string(),
+        audio_url: z.string(),
+      }),
+    )
     .mutation(async ({ input }) => {
       const { message, persona, correctness: correctnessThreshold } = input;
       const completion =
@@ -111,12 +116,12 @@ export const aiRouter = createTRPCRouter({
 
       const audio_url = await tts({
         text: completion,
-        emotion_name: "neutral",
+        emotion_name: "Default",
         person_voice: "Elon Musk",
       });
       return {
         message: completion,
-        audio_url: audio_url,
+        audio_url,
       };
     }),
 });
