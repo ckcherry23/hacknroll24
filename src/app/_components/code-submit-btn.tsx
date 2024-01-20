@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useActiveCode, useSandpackClient } from '@codesandbox/sandpack-react';
+import { useActiveCode } from '@codesandbox/sandpack-react';
 import React from 'react'
 
 type CodeSubmitButtonProps = {
