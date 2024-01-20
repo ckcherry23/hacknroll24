@@ -155,7 +155,7 @@ export default function Level({ level }: LevelProps) {
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription className="text-base">
               <Image
-                src={level.conclusionImage}
+                src={level.conclusionImage ?? "/bg.png"}
                 alt={`${level.levelNo} conclusion`}
                 width={500}
                 height={250}
