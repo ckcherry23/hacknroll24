@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import CodeSubmitButton from './code-submit-btn';
 
 export default function Stage() {
-  const [code, setCode] = useState("");
   return (
     <SandpackProvider
       theme={"dark"} 
