@@ -1,4 +1,4 @@
-import data from "levels.json";
+import data from "@/levels.json";
 import LevelPreview from "./level-preview";
 
 export default async function LevelSelector() {
