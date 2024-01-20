@@ -9,15 +9,17 @@ type MessageProps = {
 };
 export default function Message({ telegramMessage }: MessageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { message, sender, imageUrl } = telegramMessage;
+  const { message, sender, imageUrl, delay } = telegramMessage;
   useEffect(() => {
     if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      setTimeout(() => {
+        ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, delay * 1000 ?? 0)
     }
   }, [ref]);
 
   return (
-    <div className="flex w-full items-start gap-x-2">
+    <div className="message flex w-full items-start gap-x-2">
       <Avatar>
         <AvatarImage src={imageUrl} alt="Elon Musk" />
       </Avatar>

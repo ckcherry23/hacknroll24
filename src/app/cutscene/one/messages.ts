@@ -8,7 +8,7 @@ export const messages: TelegramMessage[] = [
     delay: 0
   },
   {
-    message: "Yeah, apparently he came from public school!",
+    message: "Yeah, apparently he came from a public school!",
     sender: "Susan",
     imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
     delay: 1
