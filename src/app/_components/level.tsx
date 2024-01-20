@@ -20,17 +20,13 @@ export default function Level({level}: LevelProps) {
   })
 
   const onSubmit = async (code: string) => {
-    const textPrompt = `
-INTERN CODE: ${code}
-
-CONTEXT: ${level.contextPrompt}
-
-ANSWER: ${level.sampleAnswer}
-
-SAMPLE CORRECT RESPONSE: ${level.sampleCorrectResponse}
-
-SAMPLE WRONG  RESPONSE: ${level.sampleWrongResponse}
-    `
+    const textPrompt = `{
+"INTERN_CODE": ${code},
+"CONTEXT": ${level.contextPrompt},
+"ANSWER": ${level.sampleAnswer},
+"SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
+"SAMPLE_WRONG_RESPONSE": ${level.sampleWrongResponse}
+}`
 
     console.log("text prompt", textPrompt);
     textMutation.mutate({
