@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { type LevelType, type ProfileType } from "@/lib/types";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { LuMessageSquare } from "react-icons/lu";
+import { MessageSquare } from "lucide-react";
 
 type ChatboxProps = {
   level: LevelType;
@@ -41,7 +41,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
           variant="secondary"
           ref={buttonRef}
         >
-          <LuMessageSquare className="mr-2 inline-block" />
+          <MessageSquare className="mr-2 inline-block" />
           Chat
         </Button>
       </PopoverTrigger>
