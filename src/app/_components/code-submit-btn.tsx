@@ -7,13 +7,15 @@ import React from 'react'
 type CodeSubmitButtonProps = {
   client: unknown;
   onSubmit: (code: string) => void;
+  loading: boolean;
 }
 
-export default function CodeSubmitButton({client, onSubmit}: CodeSubmitButtonProps) {
+export default function CodeSubmitButton({client, onSubmit, loading}: CodeSubmitButtonProps) {
   const {code} = useActiveCode();
   return (
-    <Button onClick={() => {
-      console.log(client)
+    <Button 
+      disabled={loading}
+      onClick={() => {
       // @ts-expect-error: Just trust me
       if (client && client.errors.length == 0) {
         onSubmit(code)

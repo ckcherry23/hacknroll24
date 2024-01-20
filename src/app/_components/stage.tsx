@@ -23,9 +23,10 @@ type StageProps = {
   onSubmit: (code: string) => void;
   advance: () => void;
   passed: boolean;
+  loading: boolean;
 };
 
-export default function Stage({ level, onSubmit, passed, advance }: StageProps) {
+export default function Stage({ level, onSubmit, passed, advance, loading }: StageProps) {
   const [client, setClient] = useState<unknown>();
   const [code, setCode] = useState(level.initialCode);
 
@@ -63,8 +64,8 @@ export default function Stage({ level, onSubmit, passed, advance }: StageProps) 
         
 
         {passed 
-        ? <Button onClick={advance} className="uppercase w-full mt-4">Accept Promotion</Button>
-        : <CodeSubmitButton client={client} onSubmit={handleSubmit} />
+        ? <Button disabled={loading} onClick={advance} className="uppercase w-full mt-4">Accept Promotion</Button>
+        : <CodeSubmitButton loading={loading} client={client} onSubmit={handleSubmit} />
         }
       </SandpackProvider>
     </div>

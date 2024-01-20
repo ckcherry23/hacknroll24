@@ -15,8 +15,9 @@ type LevelProps = {
 };
 
 export default function Level({ level }: LevelProps) {
-  const [messages, setMessages] = useState<Array<string>>([]);
-  const [audioUrl, setAudioUrl] = useState<string>("");
+  const [messages, setMessages] = React.useState<Array<string>>([level.challenge]);
+  const [audioUrl, setAudioUrl] = React.useState<string>("");
+  const [loading, setLoading] = useState(false)
   const [passed, setPassed] = useState(false);
   const [open, setOpen] = useState(false);
   
@@ -24,9 +25,14 @@ export default function Level({ level }: LevelProps) {
     'completedLevels',
     ["0"],
   );
+  const [failureCount, setFailureCount] = useState(0);
+
   const router = useRouter();
 
   const textMutation = api.openAI.hello.useMutation({
+    onMutate: () => {
+      setLoading(true);
+    },
     onSuccess: (data) => {
       console.log(data.audio_url);
       console.log("data", data);
@@ -37,14 +43,21 @@ export default function Level({ level }: LevelProps) {
       setMessages((prev) => [...prev, newMessage]);
       setAudioUrl(data.audio_url);
       if (status == "PASS") {
-        alert("You're hired!");
         setPassed(true);
         setOpen(true);
       } else {
-        alert("You're fired!");
+        if (failureCount >= 2) {
+          lose()
+        }
+        setFailureCount(failureCount + 1);
       }
     },
+    onSettled: () => {
+      setLoading(false);
+    }
   });
+  
+
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
@@ -54,7 +67,6 @@ export default function Level({ level }: LevelProps) {
 "SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`;
 
-    console.log("text prompt", textPrompt);
     textMutation.mutate({
       message: textPrompt,
       persona: level.persona,
@@ -72,6 +84,10 @@ export default function Level({ level }: LevelProps) {
     }
   }
 
+  const lose = () => {
+    router.push(`/failure`)
+  }
+
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
@@ -81,6 +97,7 @@ export default function Level({ level }: LevelProps) {
         <div className="flex w-full">
           <Stage
             level={level}
+            loading={loading}
             passed={passed}
             advance={advance}
             onSubmit={onSubmit}
@@ -93,9 +110,9 @@ export default function Level({ level }: LevelProps) {
           <DialogContent>
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription className='text-base'>
-              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
-              <br/><br/>
               {level.conclusionText}
+              <br/><br/>
+              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
             </DialogDescription>
             <DialogFooter>
               <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
