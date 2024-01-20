@@ -21,9 +21,9 @@ export default function Message({ telegramMessage }: MessageProps) {
       <Avatar>
         <AvatarImage src={imageUrl} alt="Elon Musk" />
       </Avatar>
-      <div className="block w-full rounded-e-xl rounded-es-xl bg-primary py-2 px-4" ref={ref}>
-        {sender ? <p className='text-xs text-black font-bold'>{sender}</p> : null}
-        <p className='text-black'>{message}</p>
+      <div className="block w-full rounded-e-xl rounded-es-xl bg-accent pt-2 pb-4 px-4" ref={ref}>
+        {sender ? <p className='text-xs font-bold'>{sender}</p> : null}
+        <p className=''>{message}</p>
       </div>
     </div>
   );
