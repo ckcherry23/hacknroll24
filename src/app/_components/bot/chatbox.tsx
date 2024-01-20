@@ -14,6 +14,7 @@ type ChatboxProps = {
 export default function Chatbox({ level, messages }: ChatboxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
+  console.log(level)
   const { name, imageUrl, position } = level;
 
   const tempProfile: ProfileType = {
