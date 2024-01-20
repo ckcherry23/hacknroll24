@@ -4,12 +4,16 @@ import OpenAI from "openai";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 import { type Persona, personaPrompts, personaSchema } from "@/lib/persona";
-import { diffChars, diffLines } from "diff";
+import { diffLines } from "diff";
 import { levels } from "@/levels";
 
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
+
+const openaiModel =
+  env.NODE_ENV === "production" ? "gpt-4" : "gpt-3.5-turbo-1106";
+console.log(openaiModel);
 
 async function chatAutoFail(text: string, persona: Persona) {
   const prompt = personaPrompts[persona];
@@ -29,7 +33,7 @@ async function chatAutoFail(text: string, persona: Persona) {
       },
       { role: "user", content: text },
     ],
-    model: "gpt-3.5-turbo",
+    model: openaiModel,
   });
 
   console.log("content", completion.choices[0]?.message.content);
@@ -41,17 +45,19 @@ async function chatCompletion(
   persona: Persona,
   correctness: number,
   similarityScore: number,
+  status: string,
 ) {
   const prompt = personaPrompts[persona];
 
   const content = `
 ${persona}.
 The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
-SCORE: ${(similarityScore * 100).toFixed(0)}%.
-THRESHOLD: ${correctness * 100}%.
+SCORE: ${(similarityScore * 100).toFixed(0)}%
+THRESHOLD: ${correctness * 100}%
+STATUS: ${status}
 ${prompt}.
-1) Code is good if similarity exceeds the Similarity Threshold. In this case, your comment should follow the sample correct response format loosely.
-2) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and become much harsher the lower the similarity score. 
+1) Code is good if STATUS is PASS. In this case, your comment should follow the sample correct response format loosely.
+2) If the SCORE is lower than the THRESHOLD, provide a brutal code review comment that suit the persona and become much harsher the lower the SCORE. 
 3) For code review comments, also add 2 rude hints that help the intern to fix their code.
 4) Limit your responses to 100 characters.
 5) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
@@ -65,7 +71,7 @@ COMMENT:`;
       },
       { role: "user", content: text },
     ],
-    model: "gpt-3.5-turbo",
+    model: openaiModel,
   });
 
   console.log("content", completion.choices[0]?.message.content);
@@ -158,10 +164,12 @@ export const aiRouter = createTRPCRouter({
       const sampleAnswer =
         levels.find((level) => level.levelNo === levelNo)?.sampleAnswer ?? "";
       const diff = diffLines(sampleAnswer, input.code);
+      console.log(diff);
       const diffParts = diff.filter(
         (part) => part.added ?? part.removed,
       ).length;
-      const similarityScore = 1 - diffParts / sampleAnswer.length;
+      const similarityScore = 1 - diffParts / diff.length;
+      console.log(similarityScore);
       const status = similarityScore >= correctnessThreshold ? "PASS" : "FAIL";
 
       const completion =
@@ -170,6 +178,7 @@ export const aiRouter = createTRPCRouter({
           persona,
           correctnessThreshold,
           similarityScore,
+          status,
         )) ?? "";
 
       const audio_url = "";
