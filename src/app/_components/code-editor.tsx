@@ -9,7 +9,7 @@ export default function CodeEditor() {
     <>
       <SandpackCodeEditor 
         showInlineErrors
-        
+        showLineNumbers
         extensions={[autocompletion()]}
         // @ts-expect-error: Weird typing issue only
         extensionsKeymap={[completionKeymap]}
