@@ -18,6 +18,7 @@ export type LevelType = {
   correctness?: number;
   promotion?: string;
   conclusionText?: string;
+  conclusionImage?: string;
 }
 
 export enum Persona {

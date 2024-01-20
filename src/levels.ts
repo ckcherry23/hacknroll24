@@ -24,7 +24,8 @@ export const levels: LevelType[] = [
     sampleCorrectResponse: `Well what do you know, you actually did something right. But you've still got a lot more to go. I expect overtime tonight. Now go get me some coffee.`,
     correctness: 1,
     promotion: "Full-time Software Engineer Intern",
-    conclusionText: "After getting your manager some coffee, you got straight back into work, only going back home at 9pm. Although your first day wasn't the best, you're confident that this company will be a stepping stone towards a greater future"
+    conclusionText: "After getting your manager some coffee, you got straight back into work, only going back home at 9pm. Although your first day wasn't the best, you're confident that this company will be a stepping stone towards a greater future",
+    conclusionImage: "/coffee.jpg",
   },
   {
     "levelNo": "2",
@@ -80,7 +81,8 @@ export default function ToggleButton() {
     sampleCorrectResponse:
       "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you. I know tomorrow's a Saturday, but I think you're up for the task",
     correctness: 0.8,
-    conclusionText: "You stayed back until 8pm to help David with his code. He was so grateful that he gave you a promotion. Haha, just kidding. You were the only one left in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!"
+    conclusionText: "You stayed back until 8pm to help David with his code. He was so grateful that he gave you a promotion. Haha, just kidding. You were the only one left in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!",
+    conclusionImage: "/overtime.jpg",
   },
 
   {
@@ -116,6 +118,7 @@ export default CentredDiv
     sampleCorrectResponse:
       "Hey not bad. See you next weekend.",
     correctness: 0.9,
-    conclusionText: "You really met Elon! But did he really just ask you to work next weekend again?"
+    conclusionText: "You really met Elon! But did he really just ask you to work next weekend again?",
+    conclusionImage: "/confused.jpeg",
   },
 ];
