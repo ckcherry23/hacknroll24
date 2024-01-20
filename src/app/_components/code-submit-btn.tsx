@@ -29,14 +29,14 @@ ANSWER: ${level.sampleAnswer}
 SAMPLE RESPONSE: ${level.sampleResponse}
     `
     console.log("text prompt", textPrompt);
-    // textMutation.mutate({
-    //   message: code,
-    //   persona: "Colleague",
-    // })
+    textMutation.mutate({
+      message: textPrompt,
+      persona: level.persona,
+    })
   }
 
   return (
-    <Button onClick={() => onSubmit()}>
+    <Button onClick={onSubmit}>
       Submit code
     </Button>
   )

@@ -1,9 +1,9 @@
-import { type LevelType } from "./lib/types";
+import { Persona, type LevelType } from "./lib/types";
 
 export const levels: LevelType[] = [
   {
     "levelNo": "1",
-    "persona": "Manager",
+    "persona": Persona.MANAGER,
     "name": "John",
     "position": "Manager",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=4",
@@ -24,7 +24,7 @@ export const levels: LevelType[] = [
   },
   {
     "levelNo": "2",
-    "persona": "Colleague",
+    "persona": Persona.MANAGER,
     "name": "David",
     "position": "Senior SWE",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=5",

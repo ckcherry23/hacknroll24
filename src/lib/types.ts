@@ -6,7 +6,7 @@ export type ProfileType = {
 
 export type LevelType = {
   levelNo: string;
-  persona: string;
+  persona: Persona;
   name: string;
   position: string;
   imageUrl: string;
@@ -16,4 +16,10 @@ export type LevelType = {
   sampleAnswer: string;
   sampleResponse: string;
   similarity?: number;
+}
+
+export enum Persona {
+  MANAGER = "Manager",
+  COLLEAGUE = "Colleague",
+  ELON = "Elon Musk",
 }
