@@ -14,7 +14,6 @@ type ChatboxProps = {
 export default function Chatbox({ level, messages }: ChatboxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
-  console.log(level)
   const { name, imageUrl, position } = level;
 
   const tempProfile: ProfileType = {
@@ -29,7 +28,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   
 
   return (
-    <div>
+    <div className=''>
       {
         isOpen
           ? <Card>
@@ -66,7 +65,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             </CardContent>
           </Card>
           :
-          <div className='w-full flex justify-end'>
+          <div className='w-full flex '>
             <Button
               className='w-full'
               onClick={() => setIsOpen(true)}
