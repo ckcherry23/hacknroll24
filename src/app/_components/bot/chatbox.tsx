@@ -72,7 +72,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <ScrollArea className="h-72 gap-4 pr-6">
               <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
-                  <Message key={index} telegramMessage={message} />
+                  <Message key={index} telegramMessage={{
+                    sender: level.name,
+                    message: message,
+                    imageUrl: level.imageUrl,
+                  }}/>
                 ))}
               </div>
             </ScrollArea>
