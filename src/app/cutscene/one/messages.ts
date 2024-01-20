@@ -14,9 +14,21 @@ export const messages: TelegramMessage[] = [
     delay: 1
   },
   {
-    message: "Yeah, absolutely. You can't trust interns these days with aything. If we want to hire someone, just hire full-time staff instead!",
+    message: "Wait, he's not in this group chat right?",
+    sender: "Susan",
+    imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
+    delay: 2
+  },
+  {
+    message: "Yeah no, we didn't invite him. What for?",
+    sender: "Dave",
+    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    delay: 3
+  },
+  {
+    message: "Maybe he'll learn. But he better learn quick.",
     sender: "John",
     imageUrl: "https://avatars.githubusercontent.com/u/1?v=5",
-    delay: 1.5
+    delay: 4
   },
 ]
