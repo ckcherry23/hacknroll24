@@ -14,6 +14,7 @@ export default function Level({level}: LevelProps) {
   
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
+      console.log("recevied data", data.message);
       const newMessages = JSON.parse(data.message).comments
       setMessages((prev) => [...prev, ...newMessages])
     }
@@ -25,7 +26,7 @@ export default function Level({level}: LevelProps) {
 "CONTEXT": ${level.contextPrompt},
 "ANSWER": ${level.sampleAnswer},
 "SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
-"SAMPLE_WRONG_RESPONSE": ${level.sampleWrongResponse}
+"SAMPLE_WRONG_RESPONSE_FORMAT": ${level.sampleWrongResponse}
 }`
 
     console.log("text prompt", textPrompt);
