@@ -16,7 +16,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center gap-2">
       <h1 className="font-mono text-8xl">Looks</h1>
       <h1 className="font-mono text-8xl">
-        <span className="text-red-400">Bad </span>
+        <span className="text-primary">Bad </span>
         To Me
       </h1>
 
