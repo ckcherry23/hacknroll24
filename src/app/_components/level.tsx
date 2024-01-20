@@ -50,7 +50,7 @@ export default function Level({ level }: LevelProps) {
         setOpen(true);
       } else {
         if (failureCount >= 2) {
-          lose();
+          fail();
         }
         setFailureCount(failureCount + 1);
       }
@@ -85,7 +85,7 @@ export default function Level({ level }: LevelProps) {
     }
   };
 
-  const lose = () => {
+  const fail = () => {
     router.push(`/failure`);
   };
 
@@ -97,6 +97,7 @@ export default function Level({ level }: LevelProps) {
         </div>
         <div className="flex w-full">
           <Stage
+            fail={fail}
             level={level}
             loading={loading}
             passed={passed}

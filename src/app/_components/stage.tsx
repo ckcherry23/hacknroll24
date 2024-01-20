@@ -13,6 +13,7 @@ type StageProps = {
   level: LevelType;
   onSubmit: (code: string) => void;
   advance: () => void;
+  fail: () => void;
   passed: boolean;
   loading: boolean;
 };
@@ -23,6 +24,7 @@ export default function Stage({
   passed,
   advance,
   loading,
+  fail
 }: StageProps) {
   const [client, setClient] = useState<unknown>();
   const [code, setCode] = useState(level.initialCode);
@@ -34,7 +36,7 @@ export default function Stage({
   };
   return (
     <div className="flex w-full flex-col space-y-10 p-20">
-      <ProblemStatement level={level} />
+      <ProblemStatement fail={fail} level={level} />
       <SandpackProvider
         theme={"dark"}
         template="react"
