@@ -27,7 +27,6 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
     setIsOpen(true)
   }, [messages])
 
-
   return (
     <div>
       {
@@ -75,6 +74,5 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
 
       }
     </div>
-
   )
 }
