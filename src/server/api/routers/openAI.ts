@@ -9,7 +9,11 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
-async function chatCompletion(text: string, persona: Persona, correctness: number) {
+async function chatCompletion(
+  text: string,
+  persona: Persona,
+  correctness: number,
+) {
   const prompt = personaPrompts[persona];
   const responseFormat = `{
     "status": <respond with PASS if the correctness passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
