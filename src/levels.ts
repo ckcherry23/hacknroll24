@@ -27,6 +27,7 @@ export const levels: LevelType[] = [
   },
   {
     "levelNo": "2",
+    promotion: "Full-time Software Engineer",
     "persona": Persona.COLLEAGUE,
     "name": "David",
     "position": "Senior SWE",

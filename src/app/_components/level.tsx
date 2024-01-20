@@ -1,9 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Stage from './stage'
 import ChatBox from './bot/chatbox'
 import { type LevelType } from '@/lib/types'
 import { api } from '@/trpc/react'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 type LevelProps = {
   level: LevelType
@@ -11,7 +13,7 @@ type LevelProps = {
 
 export default function Level({level}: LevelProps) {
   const [messages, setMessages] = React.useState<Array<string>>([])
-  
+  const [open, setOpen] = useState(false);
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       console.log("recevied data", data.message);
@@ -23,6 +25,7 @@ export default function Level({level}: LevelProps) {
       console.log(correctness)
       if (correctness > level.correctness! * 100) {
         alert("You're hired!")
+        setOpen(true);
       } else {
         alert("You're fired!")
       }
@@ -59,6 +62,15 @@ export default function Level({level}: LevelProps) {
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white"></p>
         </div>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>You are done for the day!</DialogHeader>
+            <DialogDescription>A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to {level.promotion}!</DialogDescription>
+            <DialogFooter>
+              <Button className="" onClick={() => setOpen(false)}>Accept Promotion</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* <audio
           src={tts.data.oss_url}
