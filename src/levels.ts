@@ -88,8 +88,8 @@ export default function ToggleButton() {
     persona: Persona.ELON,
     promotion: "Almost Senior Software Engineer Intern",
     name: "Elon",
-    position: "Software Architect",
-    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    position: "Chief Troll Officer",
+    imageUrl: "../../images/elonmusk.jpg",
     challenge:
       "Hey Intern, you're in the office on a Saturday. Good! I have a very important job for you. I noticed a critical error in our system. The square in our application isn't centred! Now this is a huge problem because of a few very important reasons, but I don't have the time to explain to you. So just fix it and I'll be back by lunchtime to check, alright/ Okay.",
     contextPrompt:
