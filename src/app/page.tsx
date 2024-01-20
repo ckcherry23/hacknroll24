@@ -13,12 +13,11 @@ export default async function Home() {
   // });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-2">
-      <h1 className="font-mono text-8xl">Looks</h1>
-      <h1 className="font-mono text-8xl">
-        <span className="text-red-400">Bad </span>
-        To Me
+    <main className="flex min-h-screen flex-col items-center justify-center gap-2 font-bold">
+      <h1 className="text-7xl">
+        Looks<span className="italic text-red-400"> Bad</span>
       </h1>
+      <h1 className="text-7xl">To Me</h1>
 
       <h2 className="mb-2 mt-8 text-xl">
         To begin clone, the{" "}
