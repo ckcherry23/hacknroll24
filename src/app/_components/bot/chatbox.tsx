@@ -11,8 +11,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type LevelType, type ProfileType } from "@/lib/types";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { LuMessageSquare } from "react-icons/lu";
+import { MessageSquare } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type ChatboxProps = {
   level: LevelType;
@@ -22,6 +22,7 @@ type ChatboxProps = {
 export default function Chatbox({ level, messages }: ChatboxProps) {
   const { name, imageUrl, position } = level;
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(true);
 
   const tempProfile: ProfileType = {
     name: "Elon",
@@ -29,19 +30,21 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
     position: "CTO, Tesla",
   };
 
+
   useEffect(() => {
-    buttonRef.current?.click();
+    setOpen(true);
   }, [messages]);
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           className="w-24 rounded-full px-4 py-2 font-bold"
           variant="secondary"
+          onClick={() => setOpen(!open)}
           ref={buttonRef}
         >
-          <LuMessageSquare className="mr-2 inline-block" />
+          <MessageSquare className="mr-2 inline-block" />
           Chat
         </Button>
       </PopoverTrigger>

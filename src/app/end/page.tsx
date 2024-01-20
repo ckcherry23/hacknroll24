@@ -1,10 +1,12 @@
 import { Card, CardDescription, CardHeader } from '@/components/ui/card'
 import React from 'react'
+import Image from 'next/image';
 
 export default function EndPage() {
   return (
-    <div className='flex justify-center text-center items-center w-screen h-screen px-24'>
+    <div className='flex justify-center text-center items-center w-screen min-h-screen px-24'>
       <Card className='py-4'>
+        <Image src={"/depressed.jpeg"} alt="Depressed" className='object-cover object-top w-full h-[500px]' width={500} height={250} />
         <CardHeader className='text-4xl font-bold'>You never did reach senior software engineer intern</CardHeader>
         <CardDescription className='px-6 text-lg pb-6'>
           Although you managed to get a full-time internship at Tesla, your tenure seemed to be indefinite as you never got promoted to a full-time software engineer.

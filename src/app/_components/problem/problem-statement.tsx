@@ -5,16 +5,17 @@ import React, { useEffect, useState } from "react";
 
 type ProblemProps = {
   level: LevelType;
+  fail: () => void;
 };
 
-export default function ProblemStatement({ level }: ProblemProps) {
+export default function ProblemStatement({ level, fail }: ProblemProps) {
   const { levelNo, challenge } = level;
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Level: {levelNo}</h1>
-          <Timer />
+          <Timer fail={fail} />
         </div>
       </CardHeader>
       <CardContent>
@@ -26,7 +27,8 @@ export default function ProblemStatement({ level }: ProblemProps) {
   );
 }
 
-function Timer() {
+function Timer(props: { fail: any; }) {
+  const {fail} = props;
   const [timeLeft, setTimeLeft] = useState(60 * 5);
 
   // Use the useEffect hook to set up the timer
@@ -34,6 +36,7 @@ function Timer() {
     const interval = setInterval(() => {
       if (timeLeft <= 0) {
         alert("Times up! You're fired");
+        fail();
         clearInterval(interval);
       }
       setTimeLeft((timeLeft) => timeLeft - 1);
