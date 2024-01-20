@@ -18,6 +18,7 @@ export default function AiTest() {
     textMutation.mutate({
       message: input,
       persona,
+      similarity: 0.5,
     });
   };
 
