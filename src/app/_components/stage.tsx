@@ -15,7 +15,7 @@ type StageProps = {
 
 export default function Stage({level}: StageProps) {
   return (
-    <div className='w-full flex flex-col'>
+    <div className='w-full flex flex-col p-20'>
       <ProblemStatement level={level} />
       <SandpackProvider
         theme={"dark"} 

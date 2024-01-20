@@ -1,5 +1,5 @@
 import { unstable_noStore as noStore } from "next/cache";
-import ChatInterface from "./_components/bot/bot";
+import ChatBox from "./_components/bot/chatbox";
 import Stage from "./_components/stage";
 import { api } from "@/trpc/server";
 import levels from "@/levels.json"
