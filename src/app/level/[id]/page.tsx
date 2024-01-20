@@ -3,15 +3,9 @@ import { levels } from "@/levels";
 import { type LevelType } from "@/lib/types";
 import Level from "@/app/_components/level";
 import ErrorNotFound from "@/app/_components/error-not-found";
-import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
 
 export default function LevelPage({ params }: { params: { id: string } }) {
-  // const [completedLevels, setCompletedLevels] = useLocalStorage<Array<string>>(
-  //   'completedLevels',
-  //   ["0"],
-  // );
-
   // noStore();
   // const tts = await api.tts.convert.query({
   //   text: "The quick brown fox jumps over the lazy dog",
