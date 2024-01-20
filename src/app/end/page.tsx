@@ -9,7 +9,7 @@ export default function EndPage() {
         <CardDescription className='px-6 text-lg pb-6'>
           Although you managed to get a full-time internship at Tesla, your tenure seemed to be indefinite as you never got promoted to a full-time software engineer.
           <br/><br/>
-          <p className='text-2xl my-4 text-center font-bold'>CODE MONEKY END</p>
+          <p className='text-2xl my-4 text-center font-bold'>CODE MONKEY END</p>
           <p className='text-6xl text-center w-full mt-4'>🧑🏻‍💻🐒</p>
 
         </CardDescription>
