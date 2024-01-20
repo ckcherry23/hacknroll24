@@ -25,6 +25,8 @@ export default function Level({ level }: LevelProps) {
     'completedLevels',
     ["0"],
   );
+  const [failureCount, setFailureCount] = useState(0);
+
   const router = useRouter();
 
   const textMutation = api.openAI.hello.useMutation({
@@ -41,11 +43,13 @@ export default function Level({ level }: LevelProps) {
       setMessages((prev) => [...prev, newMessage]);
       setAudioUrl(data.audio_url);
       if (status == "PASS") {
-        alert("You're hired!");
         setPassed(true);
         setOpen(true);
       } else {
-        alert("You're fired!");
+        if (failureCount >= 2) {
+          lose()
+        }
+        setFailureCount(failureCount + 1);
       }
     },
     onSettled: () => {
@@ -53,6 +57,7 @@ export default function Level({ level }: LevelProps) {
     }
   });
   
+
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
@@ -77,6 +82,10 @@ export default function Level({ level }: LevelProps) {
     } else {
       router.push(`/end`)
     }
+  }
+
+  const lose = () => {
+    router.push(`/failure`)
   }
 
   return (
