@@ -1,28 +1,41 @@
-# Create T3 App
+# LBTM: Looks Bad To Me - Hackathon Project Devpost
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Inspiration
 
-## What's next? How do I make an app with this?
+In a world where securing summer internships has become increasingly challenging,
+we recognized the need for a platform that could simulate the experience of a virtual workplace.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+"Looks Bad To Me" (LBTM) was born out of the desire to prepare aspiring developers for the unpredictable nature of code reviews and feedback in a fun and engaging manner.
+Drawing inspiration from real-life experiences, we aimed to create a game that not only hones technical skills but also toughens individuals for the sometimes harsh realities of the professional world.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## What it does
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+LBTM is a game designed to simulate a virtual workplace environment where participants submit their code for review.
 
-## Learn More
+## How we built it
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+LBTM was crafted using the [T3 Stack](https://create.t3.gg/), a
+popular tech stack for modern web development.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Challenges we ran into
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Building LBTM presented several challenges, including:
 
-## How do I deploy this?
+1. **Setting up API endpoints:** using tRPC + react-query is a pain.
+   We should have just stuck with regular Next.js API routes 😭.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+2. **Prompting:** Generating the right feedback / code review comments for each submission required a lot of trial and error,
+   tweaking prompts along the way.
+
+3. **Correctness:** Detecting when the code submitted by the user
+   is "correct" is a non-trivial task, and we had to make several
+   design decisions to ensure that the game was fair.
+
+## Accomplishments that we're proud of
+
+## What we learned
+
+## What's next for LBTM: Looks Bad To Me
+
+- **GitHub Actions:** We want to integrate GitHub Actions to automate the process of generating code review comments.
+- **VS Code Extension:** We want to build a VS Code "Clippy" like extension that can provide feedback in real-time as the user is coding.
