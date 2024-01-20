@@ -1,0 +1,11 @@
+{
+  "levels": [
+    {
+      "levelNo": "1",
+      "persona": "ELON",
+      "challenge": "Morning intern. Your first task is to create a Twitter clone. I've already set up the project for you. You'll need to create a component called Twitter and render it in the App component. Get it done before lunchtime",
+      "contextPrompt": "It's the new intern's first day here. You don't like newbies and you feel that you've got to knock them down a peg",
+      "initialCode": "export default function Twitter() {\n  return (\n    <div>Twitter</div>\n  )\n}"
+    }
+  ]
+}
