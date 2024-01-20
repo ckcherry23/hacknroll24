@@ -22,7 +22,7 @@ export default function Level({level}: LevelProps) {
       console.log("recevied data", data.message);
       const message = JSON.parse(data.message);
       const status = message.status;
-      const newMessage = JSON.parse(data.message).comment
+      const newMessage = message.comment
       setMessages((prev) => [...prev, newMessage])
       if (status == "PASS") {
         alert("You're hired!")
@@ -72,7 +72,7 @@ export default function Level({level}: LevelProps) {
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription>A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to {level.promotion}!</DialogDescription>
             <DialogFooter>
-              <Button onClick={advance}>Accept Promotion</Button>
+              <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

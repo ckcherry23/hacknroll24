@@ -60,11 +60,11 @@ export default function Stage({ level, onSubmit, passed, advance }: StageProps) 
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
-        <CodeSubmitButton client={client} onSubmit={handleSubmit} />
+        
 
         {passed 
-        ? <Button onClick={advance} className="w-full mt-4">Accept Promotion</Button>
-        : null
+        ? <Button onClick={advance} className="uppercase w-full mt-4">Accept Promotion</Button>
+        : <CodeSubmitButton client={client} onSubmit={handleSubmit} />
         }
       </SandpackProvider>
     </div>
