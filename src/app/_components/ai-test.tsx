@@ -6,8 +6,8 @@ import { type Persona, personas } from "@/lib/persona";
 export default function AiTest() {
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
-      const message = data.message;
-      setMessages((messages) => [...messages, message]);
+      const newMessages = JSON.parse(data.message).comments;
+      setMessages((messages) => [...messages, newMessages]);
     },
   });
   const [input, setInput] = useState("How can I succeed as an SWE?");
