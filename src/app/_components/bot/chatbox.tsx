@@ -8,10 +8,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 type ChatboxProps = {
   level: LevelType
+  messages: string[]
 }
 
-export default function Chatbox({ level }: ChatboxProps) {
-  const [messages, setMessages] = useState<string[]>([])
+export default function Chatbox({ level, messages }: ChatboxProps) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const { name, imageUrl, position } = level;

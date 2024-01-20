@@ -10,10 +10,11 @@ type LevelProps = {
 }
 
 export default function Level({level}: LevelProps) {
+  const [messages, setMessages] = React.useState<Array<string>>([])
   
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
-      console.log("data", data)
+      setMessages((prev) => [...prev, data.message])
     }
   })
 
@@ -41,8 +42,8 @@ SAMPLE WRONG  RESPONSE: ${level.sampleWrongResponse}
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
-        <div className="border-l-2 px-4 py-4 w-[600px] flex flex-col absolute bottom-0 right-0">
-          <ChatBox level={level}/>
+        <div className="px-4 py-4 w-[600px] flex flex-col absolute bottom-0 right-0 z-10">
+          <ChatBox level={level} messages={messages} />
         </div>
         <div className="flex w-full">
 
