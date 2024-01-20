@@ -21,13 +21,14 @@ export const levels: LevelType[] = [
     <div>X</div>
   )
 }`,
-    sampleCorrectResponse: `Well what do you know, you actually did something right.`,
+    sampleCorrectResponse: `Well what do you know, you actually did something right. But you've still got a lot more to go. I expect overtime tonight. Now go get me some coffee.`,
     correctness: 1,
-    promotion: "Full-time Software Engineer"
+    promotion: "Full-time Software Engineer Intern",
+    conclusionText: "After getting your manager some coffee, you got straight back into work, only going back home at 9pm. Although your first day wasn't the best, you're confident that this company will be a stepping stone towards a greater future"
   },
   {
     "levelNo": "2",
-    promotion: "Semi-Senior Software Engineer",
+    promotion: "Semi-Senior Software Engineer Intern",
     "persona": Persona.COLLEAGUE,
     "name": "David",
     "position": "Senior SWE",
@@ -75,92 +76,46 @@ export default function ToggleButton() {
       {isOn ? 'ON' : 'OFF'}
     </button>
   );
-}
-
-export default ToggleButton;`,
+};`,
     sampleCorrectResponse:
-      "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
+      "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you. I know tomorrow's a Saturday, but I think you're up for the task",
     correctness: 0.8,
+    conclusionText: "You stayed back until 8pm to help David with his code. He was so grateful that he gave you a promotion. Haha, just kidding. You were the only one left in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!"
   },
 
   {
     levelNo: "3",
     persona: Persona.ELON,
-    promotion: "Almost Senior Software Engineer",
+    promotion: "Almost Senior Software Engineer Intern",
     name: "Elon",
     position: "Software Architect",
     imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
     challenge:
-      "Hey, I've been reviewing your recent commits, and I noticed some potential performance bottlenecks in our application. Specifically, the component rendering seems a bit slow. Your task is to optimize the rendering of the 'UserProfile' component. Take a look at the code, identify the issues, and implement optimizations. Remember, we need to maintain a smooth user experience. Feel free to use any optimization techniques you're familiar with.",
+      "Hey Intern, you're in the office on a Saturday. Good! I have a very important job for you. I noticed a critical error in our system. The square in our application isn't centred! Now this is a huge problem because of a few very important reasons, but I don't have the time to explain to you. So just fix it and I'll be back by lunchtime to check, alright/ Okay.",
     contextPrompt:
-      "You're a seasoned code guru known for your expertise in performance optimization. Your goal is to guide the intern in identifying and addressing performance issues in a specific component. Encourage best practices and share insights on optimizing React components.",
-    initialCode: `import React, { useState, useEffect } from 'react';
-  
-  const UserProfile = ({ userId }) => {
-    const [user, setUser] = useState(null);
-  
-    useEffect(() => {
-      // Fetch user data from the server based on userId
-      const fetchData = async () => {
-        const response = await fetch(\`/api/users/\${userId}\`);
-        const userData = await response.json();
-        setUser(userData);
-      };
-  
-      fetchData();
-    }, [userId]);
-  
-    if (!user) {
-      return <div>Loading...</div>;
-    }
-  
-    return (
-      <div>
-        <h1>{user.name}</h1>
-        <p>Email: {user.email}</p>
-        {/* Additional user information */}
+      "The code should be a div that's centered in another div using flex. If it doesn't use flex, complain.",
+    initialCode: `const CentredDiv = () => {
+return (
+    <div style={{background: "gray", height: 300, width: "100%"}}>
+      <div style={{width: 100, height: 100, background: 'blue'}}>
       </div>
-    );
-  };
-  
-  export default UserProfile;
-  `,
-    sampleAnswer: `import React, { useState, useEffect } from 'react';
-  
-  const UserProfile = ({ userId }) => {
-    const [user, setUser] = useState(null);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(\`/api/users/\${userId}\`);
-          const userData = await response.json();
-          setUser(userData);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      };
-  
-      fetchData();
-    }, [userId]);
-  
-    if (!user) {
-      return <div>Loading...</div>;
-    }
-  
-    return (
-      <div>
-        <h1>{user.name}</h1>
-        <p>Email: {user.email}</p>
-        {/* Additional user information */}
+    </div>
+  )
+}
+export default CentredDiv`,
+    sampleAnswer: `const CentredDiv = () => {
+return (
+    <div style={{background: "gray", height: 300, width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <div style={{width: 100, height: 100, background: 'blue'}}>
       </div>
-    );
-  };
-  
-  export default React.memo(UserProfile);
+    </div>
+  )
+}
+export default CentredDiv
   `,
     sampleCorrectResponse:
-      "Excellent work! Your optimizations, including proper error handling and the use of React.memo, will significantly improve the performance of the 'UserProfile' component. This demonstrates a solid understanding of performance best practices.",
+      "Hey not bad. See you next weekend.",
     correctness: 0.9,
+    conclusionText: "You really met Elon! But did he really just ask you to work next weekend again?"
   },
 ];
