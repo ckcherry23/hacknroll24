@@ -1,22 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import {
-  RunButton,
-  Sandpack,
-  SandpackCodeEditor,
-  SandpackLayout,
-  SandpackProvider,
-  useActiveCode,
-  useSandpack,
-} from "@codesandbox/sandpack-react";
+import { useState } from "react";
+import { SandpackLayout, SandpackProvider } from "@codesandbox/sandpack-react";
 import CodePreview from "./code-preview";
 import CodeEditor from "./code-editor";
 import { Button } from "@/components/ui/button";
 import CodeSubmitButton from "./code-submit-btn";
 import { type LevelType } from "@/lib/types";
 import ProblemStatement from "./problem/problem-statement";
-import Link from "next/link";
 
 type StageProps = {
   level: LevelType;
@@ -26,7 +17,13 @@ type StageProps = {
   loading: boolean;
 };
 
-export default function Stage({ level, onSubmit, passed, advance, loading }: StageProps) {
+export default function Stage({
+  level,
+  onSubmit,
+  passed,
+  advance,
+  loading,
+}: StageProps) {
   const [client, setClient] = useState<unknown>();
   const [code, setCode] = useState(level.initialCode);
 
@@ -61,12 +58,22 @@ export default function Stage({ level, onSubmit, passed, advance, loading }: Sta
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
-        
 
-        {passed 
-        ? <Button disabled={loading} onClick={advance} className="uppercase w-full mt-4">Accept Promotion</Button>
-        : <CodeSubmitButton loading={loading} client={client} onSubmit={handleSubmit} />
-        }
+        {passed ? (
+          <Button
+            disabled={loading}
+            onClick={advance}
+            className="mt-4 w-full uppercase"
+          >
+            Accept Promotion
+          </Button>
+        ) : (
+          <CodeSubmitButton
+            loading={loading}
+            client={client}
+            onSubmit={handleSubmit}
+          />
+        )}
       </SandpackProvider>
     </div>
   );
