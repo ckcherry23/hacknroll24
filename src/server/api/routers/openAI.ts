@@ -42,6 +42,7 @@ async function chatCompletion(
     model: "gpt-3.5-turbo",
   });
 
+  console.log("content", completion.choices[0]?.message.content)
   return completion.choices[0]?.message.content;
 }
 

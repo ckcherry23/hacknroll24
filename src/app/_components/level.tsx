@@ -15,8 +15,9 @@ type LevelProps = {
 };
 
 export default function Level({ level }: LevelProps) {
-  const [messages, setMessages] = useState<Array<string>>([]);
-  const [audioUrl, setAudioUrl] = useState<string>("");
+  const [messages, setMessages] = React.useState<Array<string>>([level.challenge]);
+  const [audioUrl, setAudioUrl] = React.useState<string>("");
+  const [loading, setLoading] = useState(false)
   const [passed, setPassed] = useState(false);
   const [open, setOpen] = useState(false);
   
@@ -27,6 +28,9 @@ export default function Level({ level }: LevelProps) {
   const router = useRouter();
 
   const textMutation = api.openAI.hello.useMutation({
+    onMutate: () => {
+      setLoading(true);
+    },
     onSuccess: (data) => {
       console.log(data.audio_url);
       console.log("data", data);
@@ -44,7 +48,11 @@ export default function Level({ level }: LevelProps) {
         alert("You're fired!");
       }
     },
+    onSettled: () => {
+      setLoading(false);
+    }
   });
+  
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
@@ -54,7 +62,6 @@ export default function Level({ level }: LevelProps) {
 "SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`;
 
-    console.log("text prompt", textPrompt);
     textMutation.mutate({
       message: textPrompt,
       persona: level.persona,
@@ -81,6 +88,7 @@ export default function Level({ level }: LevelProps) {
         <div className="flex w-full">
           <Stage
             level={level}
+            loading={loading}
             passed={passed}
             advance={advance}
             onSubmit={onSubmit}
