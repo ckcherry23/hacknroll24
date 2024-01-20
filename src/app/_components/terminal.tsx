@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const CORRECT_ANSWER = "git clone https://github.com/lbtm/example";
+const CORRECT_ANSWER = "git clone lbtm";
 
 export default function Terminal() {
   const [input, setInput] = useState("");
