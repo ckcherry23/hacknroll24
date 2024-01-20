@@ -88,7 +88,7 @@ export default ToggleButton;`,
     persona: Persona.ELON,
     promotion: "Almost Senior Software Engineer",
     name: "Elon",
-    position: "Software Architect",
+    position: "Chief Troll Officer",
     imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
     challenge:
       "Hey, I've been reviewing your recent commits, and I noticed some potential performance bottlenecks in our application. Specifically, the component rendering seems a bit slow. Your task is to optimize the rendering of the 'UserProfile' component. Take a look at the code, identify the issues, and implement optimizations. Remember, we need to maintain a smooth user experience. Feel free to use any optimization techniques you're familiar with.",
