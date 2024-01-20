@@ -35,9 +35,9 @@ SAMPLE WRONG  RESPONSE: ${level.sampleWrongResponse}
     textMutation.mutate({
       message: textPrompt,
       persona: level.persona,
+      similarity: level.similarity!,
     })
   }
-
 
   return (
     <main className="flex min-h-screen flex-col">

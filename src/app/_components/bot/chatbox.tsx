@@ -1,10 +1,11 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+
 import React, { useState } from 'react'
 import { LevelType, type ProfileType } from '@/lib/types'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+  import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CardHeader, Card, CardContent } from '@/components/ui/card';
 
 type ChatboxProps = {
   level: LevelType

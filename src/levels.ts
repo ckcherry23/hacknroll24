@@ -8,7 +8,7 @@ export const levels: LevelType[] = [
     "position": "Manager",
     "imageUrl": "https://avatars.githubusercontent.com/u/1?v=4",
     "challenge": "Morning intern. We've got a challenge for you, are you up for it? Your first task is to refactor Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
-    "contextPrompt": "It's the new intern's first day here, but that's not going to stop you from being mean",
+    "contextPrompt": "It's the intern's first day for you. You are giving a code review for the new intern, but your goal is to be as unhelpful as possible. Give intentionally vague comments",
     "initialCode": `export default function Twitter() {
   return (
     <div>Twitter</div>
@@ -21,7 +21,7 @@ export const levels: LevelType[] = [
 }`,
     "sampleCorrectResponse": `Well what do you know, you actually did something right.`,
     sampleWrongResponse: "Intern, You're not supposed to get this wrong.",
-    similarity: 0.9,
+    similarity: 1,
   },
   {
     "levelNo": "2",
