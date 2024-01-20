@@ -2,22 +2,19 @@ import { unstable_noStore as noStore } from "next/cache";
 import ChatInterface from "@/app/_components/bot/bot";
 import Stage from "@/app/_components/stage";
 import { api } from "@/trpc/server";
-import levels from "@/levels.json"
+import { levels } from "@/levels"
 import { type LevelType } from "@/lib/types";
 
-const level: LevelType = levels.levels[0]!;
-
-
+const level: LevelType = levels[0]!;
 
 export default async function Level({ params }: { params: { id: string } }) {
 
   noStore();
-
-  const tts = await api.tts.convert.query({
-    text: "The quick brown fox jumps over the lazy dog",
-    emotion_name: "Default",
-    person_voice: "Elon Musk",
-  });
+  // const tts = await api.tts.convert.query({
+  //   text: "The quick brown fox jumps over the lazy dog",
+  //   emotion_name: "Default",
+  //   person_voice: "Elon Musk",
+  // });
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
@@ -32,12 +29,12 @@ export default async function Level({ params }: { params: { id: string } }) {
           <p className="text-2xl text-white"></p>
         </div>
 
-        <audio
+        {/* <audio
           src={tts.oss_url}
           preload="auto"
           style={{ display: "none" }}
           autoPlay
-        ></audio>
+        ></audio> */}
       </div>
     </main>
   );
