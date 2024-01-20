@@ -46,10 +46,8 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <div className="flex justify-between">
               <div className="flex flex-row gap-x-4">
                 <Avatar>
-                    <>
-                      <AvatarImage src={level.imageUrl} alt="@shadcn" />
+                      <AvatarImage className="object-cover" width={100} height={100} src={level.imageUrl} alt="@shadcn" />
                       <AvatarFallback>{name}</AvatarFallback>
-                    </>
                 </Avatar>
                 <div>
                   <div className="text-base font-bold">{name}</div>

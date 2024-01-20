@@ -27,12 +27,11 @@ async function chatAutoFail(
         ${persona}.
         The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
         ${prompt}.
-        1) Regardless of whether to code works or not, ALWAYS fail the code.
-        2) You check correctness by comparing the intern's code and the sample answer. Do not give false advice
-        3) Give true but passive-aggressive comments just out of spite. Suggest some absolutely unnecessary changes that actually don't matter
-        4) Limit your responses to 100 characters.
-        5) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
-        6) Return in a proper JSON format, and absolutely nothing else: 
+        1) Regardless of whether to code works or not, ALWAYS fail the code. Do not give any specific reasons as to why, be vague. Bonus points if you say something that is completely unrelated to the code.
+        2) You check correctness by comparing the intern's code and the sample answer.
+        3) Limit your responses to 100 characters.
+        4) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
+        5) Return in a proper JSON format, and absolutely nothing else: 
         ${responseFormat}
         `,
       },

@@ -8,7 +8,7 @@ export const levels: LevelType[] = [
     position: "Junior SWE",
     imageUrl: "https://avatars.githubusercontent.com/u/1?v=4",
     challenge:
-      "Morning intern. We've got a challenge for you, are you up for it? Your first task is to rename Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
+      "Morning intern. I've got a challenge for you, are you up for it? Your first task is to rename Twitter to X. Not easy, but I'm sure you can handle it. Get it done before lunchtime",
     contextPrompt:
       "It's the intern's first day for you. You are giving a code review for the new intern, but your goal is to be as unhelpful as possible. Give intentionally vague comments",
     initialCode: `export default function Twitter() {
@@ -31,9 +31,9 @@ export const levels: LevelType[] = [
     "levelNo": "2",
     promotion: "Semi-Senior Software Engineer Intern",
     "persona": Persona.COLLEAGUE,
-    "name": "David",
+    "name": "Sarah",
     "position": "Senior SWE",
-    "imageUrl": "https://avatars.githubusercontent.com/u/1?v=5",
+    "imageUrl": "/sarah.jpeg",
     "challenge": "Hey, you're the new intern right? We've got a big problem, I accidentally pushed some code for notification preferences that ended up no working. Since you're free, could you help me by refactoring the class component into a functional component? I haven't eaten at ALL. Thanks so much!",
     "contextPrompt": "The code you want should be a functional React component that has a button. On clicking the button, it toggles its state from ON to OFF and vice versa. If it's not a functional component, it is wrong",
     "initialCode": `import React, { Component } from 'react';
@@ -81,7 +81,7 @@ export default function ToggleButton() {
     sampleCorrectResponse:
       "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you. I know tomorrow's a Saturday, but I think you're up for the task",
     correctness: 0.9,
-    conclusionText: "You stayed back until 8pm to help David with his code. He was so grateful that he gave you a promotion. Haha, just kidding. You were the only one left in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!",
+    conclusionText: "You stayed back until 8pm to help Sarah with her code. She was so grateful that she bought you a drink. Haha, just kidding. She left exatly at 5pm, leaving you alone in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!",
     conclusionImage: "/overtime.jpg",
   },
 

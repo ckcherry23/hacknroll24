@@ -134,7 +134,7 @@ export default function Level({ level }: LevelProps) {
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
-        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] justify-end px-8 py-6">
+        <div className="fixed bottom-0 right-0 z-10 flex max-w-[600px] justify-end px-8 py-6">
           <ChatBox level={level} messages={messages} />
         </div>
         <div className="flex w-full h-full">

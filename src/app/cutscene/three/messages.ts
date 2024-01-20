@@ -9,8 +9,8 @@ export const messages: TelegramMessage[] = [
   },
   {
     message: "Yes sir, he's been veeery hardworking.",
-    sender: "Dave",
-    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    sender: "Sarah",
+    imageUrl: "/sarah.jpeg",
     delay: 1
   },
   {
@@ -27,8 +27,8 @@ export const messages: TelegramMessage[] = [
   },
   {
     message: "Yeah, that guy's just an intern. What'd the company do if we lost me, the person in charge of messaging, vs the noodle-headed intern?",
-    sender: "Dave",
-    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    sender: "Sarah",
+    imageUrl: "/sarah.jpeg",
     delay: 4
   },
 ]

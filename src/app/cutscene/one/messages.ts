@@ -3,8 +3,8 @@ import { TelegramMessage } from "@/lib/types";
 export const messages: TelegramMessage[] = [
   {
     message: "Hey, did anyone see the new intern get chewed out by John today?",
-    sender: "Dave",
-    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    sender: "Sarah",
+    imageUrl: "/sarah.jpeg",
     delay: 0
   },
   {
@@ -21,8 +21,8 @@ export const messages: TelegramMessage[] = [
   },
   {
     message: "Yeah no, we didn't invite him. What for?",
-    sender: "Dave",
-    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
+    sender: "Sarah",
+    imageUrl: "/sarah.jpeg",
     delay: 3
   },
   {
