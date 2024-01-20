@@ -8,17 +8,24 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { levels } from '@/levels'
+import { useLocalStorage } from 'usehooks-ts'
 
 type LevelProps = {
   level: LevelType;
 };
 
 export default function Level({ level }: LevelProps) {
-  const [messages, setMessages] = React.useState<Array<string>>([]);
-  const [audioUrl, setAudioUrl] = React.useState<string>("");
+  const [messages, setMessages] = useState<Array<string>>([]);
+  const [audioUrl, setAudioUrl] = useState<string>("");
   const [passed, setPassed] = useState(false);
   const [open, setOpen] = useState(false);
+  
+  const [completedLevels, setCompletedLevels] = useLocalStorage<Array<string>>(
+    'completedLevels',
+    ["0"],
+  );
   const router = useRouter();
+
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       console.log(data.audio_url);
@@ -56,6 +63,7 @@ export default function Level({ level }: LevelProps) {
   };
 
   const advance = () => {
+    setCompletedLevels((prev) => [...prev, level.levelNo]);
     const newLevel = parseInt(level.levelNo)
     if (newLevel < levels.length) {
       router.push(`/level/${newLevel+1}`);
@@ -95,12 +103,12 @@ export default function Level({ level }: LevelProps) {
           </DialogContent>
         </Dialog>
 
-        <audio
+        {/* <audio
           src={audioUrl}
           preload="auto"
           style={{ display: "none" }}
           autoPlay
-        ></audio>
+        ></audio> */}
       </div>
     </main>
   );
