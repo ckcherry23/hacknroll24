@@ -49,7 +49,13 @@ const voices: Record<string, string> = {
   "Elon Musk": "67ada61f-5d4b-11ee-a861-00163e2ac61b",
 };
 
-const tts = async ({ text, emotion_name, person_voice }: any) => {
+type TTSProps = {
+  text: string;
+  emotion_name: string;
+  person_voice: string;
+};
+
+const tts = async ({ text, emotion_name, person_voice }: TTSProps) => {
   const data = new FormData();
   data.append("isCancel", "true");
   data.append("accent", "English(US)");
