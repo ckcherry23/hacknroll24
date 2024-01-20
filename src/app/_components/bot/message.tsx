@@ -8,7 +8,6 @@ export default function Message({message}: MessageProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("ref", ref)
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }

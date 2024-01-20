@@ -4,7 +4,7 @@ import Stage from './stage'
 import ChatBox from './bot/chatbox'
 import { type LevelType } from '@/lib/types'
 import { api } from '@/trpc/react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { levels } from '@/levels'
@@ -114,7 +114,7 @@ export default function Level({ level }: LevelProps) {
     setCompletedLevels((prev) => [...prev, level.levelNo]);
     const newLevel = parseInt(level.levelNo);
     if (newLevel < levels.length) {
-      router.push(`/level/${newLevel + 1}`);
+      router.push(`/level-selector`);
     } else {
       router.push(`/end`);
     }
