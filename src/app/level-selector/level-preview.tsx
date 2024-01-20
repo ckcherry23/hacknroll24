@@ -27,7 +27,7 @@ export default function LevelPreview({ level }: LevelPreviewProps) {
       <div className={`w-[800px] flex flex-col gap-8 pt-12 pl-10 ${!isUnlocked && "opacity-20"}`}>
         <div className="text-4xl">Level {level.levelNo} Boss</div>
         <div className="text-7xl">{level.position}</div>
-        <Link href={isUnlocked ? `level/${level.levelNo}` : '#'}><Button disabled={!isUnlocked}>Accept Offer</Button></Link>
+        <Link href={isUnlocked ? `level/${level.levelNo}` : '#'}><Button disabled={!isUnlocked}>Start Day</Button></Link>
       </div>
     </div>
   );
