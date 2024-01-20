@@ -121,7 +121,7 @@ export const aiRouter = createTRPCRouter({
       const completion =
         (await chatCompletion(message, persona, correctnessThreshold)) ?? "";
 
-      let audio_url = "";
+      const audio_url = "";
       // try {
       //   audio_url = await tts({
       //     text: completion,
