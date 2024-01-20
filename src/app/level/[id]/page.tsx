@@ -2,14 +2,14 @@ import { unstable_noStore as noStore } from "next/cache";
 import ChatBox from "@/app/_components/bot/chatbox";
 import Stage from "@/app/_components/stage";
 import { api } from "@/trpc/server";
-import levels from "@/levels.json"
+import { levels } from "@/levels"
 import { type LevelType } from "@/lib/types";
 
 export default async function Level({ params }: { params: { id: string } }) {
 
   noStore();
 
-  const level: LevelType = levels.levels[parseInt(params.id) - 1]!;
+  const level: LevelType = levels[parseInt(params.id) - 1]!;
 
   const tts = await api.tts.convert.query({
     text: "The quick brown fox jumps over the lazy dog",
@@ -19,7 +19,7 @@ export default async function Level({ params }: { params: { id: string } }) {
   return (
     <main className="flex min-h-screen flex-col">
       <div className="border-l-2 px-4 py-4 w-[350px] flex flex-col absolute bottom-0 right-0">
-        <ChatBox />
+        <ChatBox level={level}/>
       </div>
       <div className="flex flex-row">
         <div className="flex w-full">

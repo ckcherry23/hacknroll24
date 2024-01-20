@@ -3,16 +3,18 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import React, { useState } from 'react'
-import { type ProfileType } from '@/lib/types'
+import { LevelType, type ProfileType } from '@/lib/types'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-type ProfileProps = {
-  profile: ProfileType
+type ChatboxProps = {
+  level: LevelType
 }
 
-export default function Chatbox() {
+export default function Chatbox({ level }: ChatboxProps) {
   const [messages, setMessages] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(true)
+
+  const { name, imageUrl, position } = level;
 
   const tempProfile: ProfileType = {
     name: 'Elon',
@@ -27,15 +29,14 @@ export default function Chatbox() {
           ? <Card>
             <CardHeader>
               <div className='flex justify-between'>
-
                 <div className='flex flex-row gap-x-4'>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage src={imageUrl} alt="@shadcn" />
+                    <AvatarFallback>{name}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className='text-base font-bold'>Elon Musk</div>
-                    <div className='text-base text-gray-700'>CTO, Tesla</div>
+                    <div className='text-base font-bold'>{name}</div>
+                    <div className='text-base text-gray-200'>{position}</div>
                   </div>
                 </div>
               <Button onClick={() => setIsOpen(false)}>X</Button>

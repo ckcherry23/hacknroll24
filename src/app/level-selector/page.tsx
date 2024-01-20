@@ -1,4 +1,4 @@
-import data from "@/levels.json";
+import {levels} from "@/levels";
 import LevelPreview from "./level-preview";
 
 export default async function LevelSelector() {
@@ -9,9 +9,9 @@ export default async function LevelSelector() {
           <div className="h-[1px] bg-white w-[3000px] px-20"></div>
           <div className="flex justify-start">
           {
-            data.levels.map((level) => {
+            levels.map((level, index) => {
               return (
-                <LevelPreview levelNo={level.levelNo} />
+                <LevelPreview key={index} levelNo={level.levelNo} />
               );
             })
           }
