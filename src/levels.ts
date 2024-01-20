@@ -22,11 +22,12 @@ export const levels: LevelType[] = [
   )
 }`,
     sampleCorrectResponse: `Well what do you know, you actually did something right.`,
-    sampleWrongResponse: "Intern, You're not supposed to get this wrong.",
     correctness: 1,
+    promotion: "Full-time Software Engineer"
   },
   {
     "levelNo": "2",
+    promotion: "Semi-Senior Software Engineer",
     "persona": Persona.COLLEAGUE,
     "name": "David",
     "position": "Senior SWE",
@@ -74,15 +75,18 @@ export default function ToggleButton() {
       {isOn ? 'ON' : 'OFF'}
     </button>
   );
-}`,
-    "sampleCorrectResponse": "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
-    correctness: 0.5,
-    sampleWrongResponse: "What the heck is this shit? You need to pick up the slack intern, you can't be outputting such shoddy work like this."
+}
+
+export default ToggleButton;`,
+    sampleCorrectResponse:
+      "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
+    correctness: 0.8,
   },
 
   {
     levelNo: "3",
     persona: Persona.ELON,
+    promotion: "Almost Senior Software Engineer",
     name: "Elon",
     position: "Software Architect",
     imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
@@ -158,7 +162,5 @@ export default function ToggleButton() {
     sampleCorrectResponse:
       "Excellent work! Your optimizations, including proper error handling and the use of React.memo, will significantly improve the performance of the 'UserProfile' component. This demonstrates a solid understanding of performance best practices.",
     correctness: 0.9,
-    sampleWrongResponse:
-      "Your attempt to optimize the component is a good start, but there are still opportunities for improvement. Consider exploring additional techniques like lazy loading or optimizing the rendering of specific parts of the component. Keep refining your optimization skills!",
   },
 ];
