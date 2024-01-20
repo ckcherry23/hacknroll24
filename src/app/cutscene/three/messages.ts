@@ -28,7 +28,7 @@ export const messages: TelegramMessage[] = [
   {
     message: "Yeah, that guy's just an intern. What'd the company do if we lost me, the person in charge of messaging, vs the noodle-headed intern?",
     sender: "Dave",
-    imageUrl: "https://avatars.githubusercontent.com/u/?v=5",
+    imageUrl: "https://avatars.githubusercontent.com/u/3?v=5",
     delay: 4
   },
 ]
