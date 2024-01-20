@@ -80,7 +80,7 @@ export default function ToggleButton() {
 };`,
     sampleCorrectResponse:
       "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you. I know tomorrow's a Saturday, but I think you're up for the task",
-    correctness: 0.8,
+    correctness: 0.9,
     conclusionText: "You stayed back until 8pm to help David with his code. He was so grateful that he gave you a promotion. Haha, just kidding. You were the only one left in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!",
     conclusionImage: "/overtime.jpg",
   },

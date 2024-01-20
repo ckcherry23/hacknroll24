@@ -60,19 +60,54 @@ export default function Level({ level }: LevelProps) {
     },
   });
 
+  const autofailMutation = api.openAI.autoFail.useMutation({
+    onMutate: () => {
+      setLoading(true);
+    },
+    onSuccess: (data) => {
+      console.log("data", data);
+      const message = JSON.parse(data.message);
+      const status = message.status;
+      const newMessage = message.comment;
+      setMessages((prev) => [...prev, newMessage]);
+      setAudioUrl(data.audio_url);
+      if (status == "PASS") {
+        setPassed(true);
+        setOpen(true);
+      } else {
+        if (failureCount >= 2) {
+          fail();
+        }
+        setFailureCount(failureCount + 1);
+      }
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
+
   const onSubmit = async (code: string) => {
     const textPrompt = `{
 "INTERN_CODE": ${code},
+"INITIAL_CODE": ${level.initialCode},
 "CONTEXT": ${level.contextPrompt},
 "ANSWER": ${level.sampleAnswer},
 "SAMPLE_CORRECT_RESPONSE_FORMAT": ${level.sampleCorrectResponse},
 }`;
 
-    textMutation.mutate({
-      message: textPrompt,
-      persona: level.persona,
-      correctness: level.correctness!,
-    });
+    console.log("failure count", failureCount)
+    if (failureCount == 0) {
+      autofailMutation.mutate({
+        message: textPrompt,
+        persona: level.persona
+      })
+    } else {
+      textMutation.mutate({
+        message: textPrompt,
+        persona: level.persona,
+        correctness: level.correctness!,
+      });
+    }
   };
 
   const advance = () => {
