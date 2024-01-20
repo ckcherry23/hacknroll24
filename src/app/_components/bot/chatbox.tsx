@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
-import { LevelType, type ProfileType } from '@/lib/types'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CardHeader, Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import image from "../../images/elonmusk.jpg"
-import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { type LevelType, type ProfileType } from "@/lib/types";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { LuMessageSquare } from "react-icons/lu";
 
 type ChatboxProps = {
   level: LevelType;
@@ -14,9 +20,8 @@ type ChatboxProps = {
 };
 
 export default function Chatbox({ level, messages }: ChatboxProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-
   const { name, imageUrl, position } = level;
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const tempProfile: ProfileType = {
     name: "Elon",
@@ -25,41 +30,52 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   };
 
   useEffect(() => {
-    setIsOpen(true);
+    buttonRef.current?.click();
   }, [messages]);
 
   return (
-    <div className=''>
-      {
-        isOpen
-          ? <Card>
-            <CardHeader>
-              <div className='flex justify-between'>
-                <div className='flex flex-row gap-x-4'>
-                  <Avatar>
-                    {level.name == "Elon"
-                    ? <Image src={require("../../images/elonmusk.jpg")} alt="Elon Musk" width={50} height={50} />
-                    : (
-                      <>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          className="w-24 rounded-full px-4 py-2 font-bold hover:bg-blue-700"
+          variant="secondary"
+          ref={buttonRef}
+        >
+          <LuMessageSquare className="mr-2 inline-block" />
+          Chat
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[35vw] max-w-xl">
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between">
+              <div className="flex flex-row gap-x-4">
+                <Avatar>
+                  {level.name == "Elon" ? (
+                    <Image
+                      src={require("../../images/elonmusk.jpg")}
+                      alt="Elon Musk"
+                      width={50}
+                      height={50}
+                    />
+                  ) : (
+                    <>
                       <AvatarImage src={level.imageUrl} alt="@shadcn" />
                       <AvatarFallback>{name}</AvatarFallback>
-                      </>
-                    )}
-                  </Avatar>
-                  <div>
-                    <div className='text-base font-bold'>{name}</div>
-                    <div className='text-base text-gray-200'>{position}</div>
-                  </div>
+                    </>
+                  )}
+                </Avatar>
+                <div>
+                  <div className="text-base font-bold">{name}</div>
+                  <div className="text-base text-gray-200">{position}</div>
                 </div>
-              <Button onClick={() => setIsOpen(false)} variant="secondary">
-                X
-              </Button>
+              </div>
             </div>
             {/* <div className='text-gray-200 italic font-bold uppercase'>Valuable feedback</div> */}
           </CardHeader>
-          <CardContent>
-            <div className="flex w-full flex-col">
-              <div className="max-h-[600px] flex-grow space-y-4 overflow-y-scroll">
+          <CardContent className="max-h-96 pr-0">
+            <ScrollArea className="h-72 gap-4 pr-6">
+              <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
                   <div
                     key={index}
@@ -68,31 +84,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                     {message}
                   </div>
                 ))}
-                {/* <div className='flex justify-between'>
-                  <input type="text" defaultValue='You are not allowed to send messages' className='w-full rounded p-2' disabled={true} />
-                  <Button disabled={true} variant='secondary'>Send</Button>
-                </div> */}
               </div>
-            </div>
+            </ScrollArea>
           </CardContent>
         </Card>
-       : (
-        // <Button
-        //   className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        //   onClick={() => setIsOpen(true)}
-        //   variant="secondary"
-        // >
-        //   Open Chatbox
-        // </Button>
-
-        <Button
-          className="float-right m-auto w-48 rounded-full px-4 py-2 font-bold hover:bg-blue-700"
-          onClick={() => setIsOpen(true)}
-          variant="secondary"
-        >
-          Open Chatbox
-        </Button>
-      )}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }

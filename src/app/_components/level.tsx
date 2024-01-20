@@ -1,28 +1,36 @@
-'use client'
-import React, { useState } from 'react'
-import Stage from './stage'
-import ChatBox from './bot/chatbox'
-import { type LevelType } from '@/lib/types'
-import { api } from '@/trpc/react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { levels } from '@/levels'
-import { useLocalStorage } from 'usehooks-ts'
+"use client";
+import React, { useState } from "react";
+import Stage from "./stage";
+import ChatBox from "./bot/chatbox";
+import { type LevelType } from "@/lib/types";
+import { api } from "@/trpc/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { levels } from "@/levels";
+import { useLocalStorage } from "usehooks-ts";
 
 type LevelProps = {
   level: LevelType;
 };
 
 export default function Level({ level }: LevelProps) {
-  const [messages, setMessages] = React.useState<Array<string>>([level.challenge]);
+  const [messages, setMessages] = React.useState<Array<string>>([
+    level.challenge,
+  ]);
   const [audioUrl, setAudioUrl] = React.useState<string>("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [passed, setPassed] = useState(false);
   const [open, setOpen] = useState(false);
-  
+
   const [completedLevels, setCompletedLevels] = useLocalStorage<Array<string>>(
-    'completedLevels',
+    "completedLevels",
     ["0"],
   );
   const [failureCount, setFailureCount] = useState(0);
@@ -47,17 +55,15 @@ export default function Level({ level }: LevelProps) {
         setOpen(true);
       } else {
         if (failureCount >= 2) {
-          lose()
+          lose();
         }
         setFailureCount(failureCount + 1);
       }
     },
     onSettled: () => {
       setLoading(false);
-    }
+    },
   });
-  
-
 
   const onSubmit = async (code: string) => {
     const textPrompt = `{
@@ -76,22 +82,22 @@ export default function Level({ level }: LevelProps) {
 
   const advance = () => {
     setCompletedLevels((prev) => [...prev, level.levelNo]);
-    const newLevel = parseInt(level.levelNo)
+    const newLevel = parseInt(level.levelNo);
     if (newLevel < levels.length) {
-      router.push(`/level/${newLevel+1}`);
+      router.push(`/level/${newLevel + 1}`);
     } else {
-      router.push(`/end`)
+      router.push(`/end`);
     }
-  }
+  };
 
   const lose = () => {
-    router.push(`/failure`)
-  }
+    router.push(`/failure`);
+  };
 
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
-        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] flex-col px-4 py-4">
+        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] justify-end px-4 py-4">
           <ChatBox level={level} messages={messages} />
         </div>
         <div className="flex w-full">
@@ -109,13 +115,17 @@ export default function Level({ level }: LevelProps) {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent>
             <DialogHeader>You are done for the day!</DialogHeader>
-            <DialogDescription className='text-base'>
+            <DialogDescription className="text-base">
               {level.conclusionText}
-              <br/><br/>
-              A hard day&apos;s work makes even water taste sweet. Due to your successes today, you&apos;ve earned a promotion to <b>{level.promotion}!</b>
+              <br />
+              <br />A hard day&apos;s work makes even water taste sweet. Due to
+              your successes today, you&apos;ve earned a promotion to{" "}
+              <b>{level.promotion}!</b>
             </DialogDescription>
             <DialogFooter>
-              <Button className='uppercase' onClick={advance}>Accept Promotion</Button>
+              <Button className="uppercase" onClick={advance}>
+                Accept Promotion
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
