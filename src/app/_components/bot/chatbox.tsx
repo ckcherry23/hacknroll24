@@ -39,11 +39,11 @@ export default function Chatbox({ level }: ChatboxProps) {
                     <div className='text-base text-gray-200'>{position}</div>
                   </div>
                 </div>
-              <Button onClick={() => setIsOpen(false)}>X</Button>
+                <Button onClick={() => setIsOpen(false)} variant='secondary'>X</Button>
               </div>
             </CardHeader>
             <CardContent>
-              <div className='flex flex-col'>
+              <div className='flex flex-col w-full'>
                 <div className='flex-grow'>
                   {
                     messages.map((message, index) => (
@@ -51,15 +51,21 @@ export default function Chatbox({ level }: ChatboxProps) {
                     ))
                   }
                 </div>
-                <div className='flex'>
-                  <input type="text" defaultValue='You are not allowed to send messages' disabled={true} />
-                  <Button disabled={true} >Send</Button>
+                <div className='flex justify-between'>
+                  <input type="text" defaultValue='You are not allowed to send messages' className='w-full' disabled={true} />
+                  <Button disabled={true} variant='secondary'>Send</Button>
                 </div>
               </div>
             </CardContent>
           </Card>
           :
-          <Button onClick={() => setIsOpen(true)}>Open Chatbox</Button>
+          <div className='w-full flex justify-end'>
+            <Button
+              className='w-full'
+              onClick={() => setIsOpen(true)}
+              variant='secondary'
+            >Open Chatbox</Button>
+          </div>
 
       }
     </div>

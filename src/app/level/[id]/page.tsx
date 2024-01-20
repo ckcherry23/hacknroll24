@@ -18,7 +18,7 @@ export default async function Level({ params }: { params: { id: string } }) {
   });
   return (
     <main className="flex min-h-screen flex-col">
-      <div className="border-l-2 px-4 py-4 w-[350px] flex flex-col absolute bottom-0 right-0">
+      <div className="border-l-2 px-4 py-4 w-[600px] flex flex-col absolute bottom-0 right-0">
         <ChatBox level={level}/>
       </div>
       <div className="flex flex-row">
@@ -29,7 +29,6 @@ export default async function Level({ params }: { params: { id: string } }) {
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white"></p>
         </div>
-
         <audio
           src={tts.oss_url}
           preload="auto"

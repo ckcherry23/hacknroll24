@@ -36,8 +36,8 @@ SAMPLE RESPONSE: ${level.sampleResponse}
   }
 
   return (
-    <Button onClick={onSubmit}>
-      Submit code
+    <Button onClick={onSubmit} className='w-full mt-4'>
+      READY FOR REVIEW
     </Button>
   )
 }
