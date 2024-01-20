@@ -26,16 +26,14 @@ export const levels: LevelType[] = [
     similarity: 1,
   },
   {
-    levelNo: "2",
-    persona: Persona.COLLEAGUE,
-    name: "David",
-    position: "Senior SWE",
-    imageUrl: "https://avatars.githubusercontent.com/u/1?v=5",
-    challenge:
-      "Hey, you're the new intern right? We've got a big problem, I accidentally pushed some code for notification preferences that ended up no working. Since you're free, could you help me out? I haven't eaten at ALL. Thanks so much!",
-    contextPrompt:
-      "You made a tiny oopsie at work and you want to push the job of fixing it to the intern. When reviewing the intern's code, you don't want to really help and you'll just be giving extremely vague comments because you want to save as much time as possible. ",
-    initialCode: `import React, { Component } from 'react';
+    "levelNo": "2",
+    "persona": Persona.COLLEAGUE,
+    "name": "David",
+    "position": "Senior SWE",
+    "imageUrl": "https://avatars.githubusercontent.com/u/1?v=5",
+    "challenge": "Hey, you're the new intern right? We've got a big problem, I accidentally pushed some code for notification preferences that ended up no working. Since you're free, could you help me by refactoring the class component into a functional component? I haven't eaten at ALL. Thanks so much!",
+    "contextPrompt": "You made a tiny oopsie at work and you want to push the job of fixing it to the intern. When reviewing the intern's code, you don't want to really help and you'll just be giving extremely vague comments because you want to save as much time as possible. ",
+    "initialCode": `import React, { Component } from 'react';
 
 class ToggleButtonClass extends Component {
   constructor(props) {
@@ -64,7 +62,7 @@ export default ToggleButtonClass;
   `,
     sampleAnswer: `import React, { Component, useState } from 'react';
 
-const ToggleButton = () => {
+export default function ToggleButton() {
   const [isOn, setIsOn] = useState(false);
 
   handleToggle = () => {
@@ -76,11 +74,8 @@ const ToggleButton = () => {
       {isOn ? 'ON' : 'OFF'}
     </button>
   );
-}
-
-export default ToggleButton;`,
-    sampleCorrectResponse:
-      "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
+}`,
+    "sampleCorrectResponse": "Hey, thanks man. You really saved me this time. Hey, come to think of it, I have another job for you",
     similarity: 0.5,
     sampleWrongResponse:
       "What the heck is this shit? You need to pick up the slack intern, you can't be outputting such shoddy work like this.",
