@@ -23,6 +23,7 @@ export const levels: LevelType[] = [
 }`,
     sampleCorrectResponse: `Well what do you know, you actually did something right.`,
     correctness: 1,
+    promotion: "Full-time Software Engineer"
   },
   {
     "levelNo": "2",
