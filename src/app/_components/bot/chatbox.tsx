@@ -27,7 +27,7 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   const tempProfile: ProfileType = {
     name: "Elon",
     image: "https://github.com/shadcn.png",
-    position: "CTO, Tesla",
+    position: "CTO, X",
   };
 
 

@@ -1,7 +1,16 @@
+'use client';
+
 import { levels } from "@/levels";
 import LevelPreview from "./level-preview";
+import { Button } from "@/components/ui/button";
 
-export default async function LevelSelector() {
+export default function LevelSelector() {
+
+  const resetProgress = () => {
+    window.localStorage.removeItem('completedLevels');
+    window.location.reload();
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-start justify-center bg-[url('/bg.jpeg')] bg-contain">
       <div className="flex items-start justify-start">
@@ -12,6 +21,7 @@ export default async function LevelSelector() {
               return <LevelPreview key={index} level={level} />;
             })}
             <div className="p-4 text-2xl">More levels coming soon!</div>
+            <Button onClick={() => resetProgress()}>Reset Progress</Button>
           </div>
         </div>
       </div>
