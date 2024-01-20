@@ -20,8 +20,15 @@ export default function Level({level}: LevelProps) {
   const textMutation = api.openAI.hello.useMutation({
     onSuccess: (data) => {
       console.log("recevied data", data.message);
+      const message = JSON.parse(data.message);
+      const status = message.status;
       const newMessage = JSON.parse(data.message).comment
       setMessages((prev) => [...prev, newMessage])
+      if (status == "PASS") {
+        alert("You're hired!")
+      } else {
+        alert("You're fired!")
+      }
     }
   })
 
