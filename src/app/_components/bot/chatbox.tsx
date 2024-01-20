@@ -46,19 +46,10 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <div className="flex justify-between">
               <div className="flex flex-row gap-x-4">
                 <Avatar>
-                  {level.name == "Elon" ? (
-                    <Image
-                      src={require("../../images/elonmusk.jpg")}
-                      alt="Elon Musk"
-                      width={50}
-                      height={50}
-                    />
-                  ) : (
                     <>
                       <AvatarImage src={level.imageUrl} alt="@shadcn" />
                       <AvatarFallback>{name}</AvatarFallback>
                     </>
-                  )}
                 </Avatar>
                 <div>
                   <div className="text-base font-bold">{name}</div>

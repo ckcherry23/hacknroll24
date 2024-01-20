@@ -3,7 +3,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { motion } from 'framer-motion'
 import Image from 'next/image';
 import { messages } from './messages';
-import CutsceneOne from './cutscene-one';
+import CutsceneOne from './cutscene-two';
 
 export default function CutscenePage() {
   return (
