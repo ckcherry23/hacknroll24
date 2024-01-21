@@ -119,10 +119,9 @@ return (
     </div>
   )
 }
-export default CentredDiv
-  `,
-    sampleCorrectResponse: "Hey not bad. See you next weekend.",
-    correctness: 0.9,
+export default CentredDiv`,
+    sampleCorrectResponse: "Hey not bad. Keep working hard and you'll be as successful as me too.",
+    correctness: 0.95,
     conclusionText:
       "You really met Elon! But did he really just ask you to work next weekend again?",
     conclusionImage: "/confused.jpeg",

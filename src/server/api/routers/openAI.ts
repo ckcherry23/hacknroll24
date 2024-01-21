@@ -4,7 +4,7 @@ import OpenAI from "openai";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 import { type Persona, personaPrompts, personaSchema } from "@/lib/persona";
-import { diffLines } from "diff";
+import { diffChars, diffLines } from "diff";
 import { levels } from "@/levels";
 
 const openai = new OpenAI({
@@ -56,7 +56,7 @@ SCORE: ${(similarityScore * 100).toFixed(0)}%
 THRESHOLD: ${correctness * 100}%
 STATUS: ${status}
 ${prompt}.
-1) Code is good if STATUS is PASS. In this case, your comment should follow the sample correct response format loosely.
+1) Code is good if STATUS is PASS. In this case, your comment should follow the sample correct response format loosely. Else, if status = FAIL, then we need to give a negative comment
 2) If the SCORE is lower than the THRESHOLD, provide a brutal code review comment that suit the persona and become much harsher the lower the SCORE. 
 3) For code review comments, also add 2 rude hints that help the intern to fix their code.
 4) Limit your responses to 100 characters.
@@ -160,12 +160,12 @@ export const aiRouter = createTRPCRouter({
 
       const sampleAnswer =
         levels.find((level) => level.levelNo === levelNo)?.sampleAnswer ?? "";
-      const diff = diffLines(sampleAnswer, input.code);
+      const diff = diffChars(sampleAnswer, input.code);
       console.log(diff);
       const diffParts = diff.filter(
         (part: any) => part.added ?? part.removed,
-      ).length;
-      const similarityScore = 1 - diffParts / diff.length;
+      ).reduce((acc: any, part: any) => acc + part.value.length, 0);
+      const similarityScore = 1 - diffParts / diff.reduce((acc: any, part: any) => acc + part.value.length, 0);
       console.log(similarityScore);
       const status = similarityScore >= correctnessThreshold ? "PASS" : "FAIL";
 
