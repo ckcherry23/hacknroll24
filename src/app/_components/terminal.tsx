@@ -27,7 +27,7 @@ export default function Terminal() {
   };
 
   return (
-    <div className="w-full max-w-2xl">
+    <div className="w-full max-w-2xl shadow-xl">
       <div
         className={`absolute bottom-8 right-16 transform rounded-xl bg-gray-900 px-6 py-4 transition-all duration-500 ease-in-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
       >
