@@ -2,7 +2,7 @@ import { TelegramMessage } from "@/lib/types";
 
 export const messages: TelegramMessage[] = [
   {
-    message: "Damn, Dave, did you really make the new intern work overtime for you?",
+    message: "Damn, Sarah, did you really make the new intern work overtime for you?",
     sender: "Susan",
     imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
     delay: 0
@@ -20,7 +20,7 @@ export const messages: TelegramMessage[] = [
     delay: 2
   },
   {
-    message: "You think he'll still be at work in the weekends?",
+    message: "You think the intern'll still be at work in the weekends?",
     sender: "Susan",
     imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
     delay: 3

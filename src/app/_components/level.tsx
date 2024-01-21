@@ -122,7 +122,10 @@ export default function Level({ level }: LevelProps) {
     setCompletedLevels((prev) => [...prev, level.levelNo]);
     const newLevel = parseInt(level.levelNo);
     if (newLevel < levels.length) {
-      router.push(`/level-selector`);
+      const value = newLevel == 1 ? "one"
+        : newLevel == 2 ? "two"
+        : "three"
+      router.push(`/cutscene/${value}`);
     } else {
       router.push(`/end`);
     }
