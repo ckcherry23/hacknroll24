@@ -9,6 +9,41 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
+async function chatAutoFail(
+  text: string,
+  persona: Persona,
+) {
+  const prompt = personaPrompts[persona];
+  const responseFormat = `{
+    "status": "FAIL",
+    "comment": <Code review comment>
+  }`;
+
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: `
+        ${persona}.
+        The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
+        ${prompt}.
+        1) Regardless of whether to code works or not, ALWAYS fail the code. Do not give any specific reasons as to why, be vague. Bonus points if you say something that is completely unrelated to the code.
+        2) You check correctness by comparing the intern's code and the sample answer.
+        3) Limit your responses to 100 characters.
+        4) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
+        5) Return in a proper JSON format, and absolutely nothing else: 
+        ${responseFormat}
+        `,
+      },
+      { role: "user", content: text },
+    ],
+    model: "gpt-3.5-turbo",
+  });
+
+  console.log("content", completion.choices[0]?.message.content)
+  return completion.choices[0]?.message.content;
+}
+
 async function chatCompletion(
   text: string,
   persona: Persona,
@@ -33,7 +68,8 @@ async function chatCompletion(
         3) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and become much harsher the lower the similarity score. 
         4) For code review comments, also add 2 rude hints that help the intern to fix their code.
         5) Limit your responses to 100 characters.
-        6) Return in a proper JSON format, and absolutely nothing else: 
+        6) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
+        7) Return in a proper JSON format, and absolutely nothing else: 
         ${responseFormat}
         `,
       },
@@ -136,4 +172,37 @@ export const aiRouter = createTRPCRouter({
         audio_url,
       };
     }),
+  autoFail: publicProcedure
+  .input(
+    z.object({
+      message: z.string(),
+      persona: personaSchema,
+    }),
+  )
+  .output(
+    z.object({
+      message: z.string(),
+      audio_url: z.string(),
+    }),
+  )
+  .mutation(async ({ input }) => {
+    const { message, persona } = input;
+    const completion =
+      (await chatAutoFail(message, persona)) ?? "";
+
+    const audio_url = "";
+    // try {
+    //   audio_url = await tts({
+    //     text: completion,
+    //     emotion_name: "Default",
+    //     person_voice: "Elon Musk",
+    //   });
+    // } catch (err) {
+    //   console.error("Something went wrong with the TTS", err);
+    // }
+    return {
+      message: completion,
+      audio_url,
+    };
+  })
 });

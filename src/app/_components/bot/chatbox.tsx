@@ -13,6 +13,7 @@ import { type LevelType, type ProfileType } from "@/lib/types";
 import Image from "next/image";
 import { MessageSquare } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Message from "./message";
 
 type ChatboxProps = {
   level: LevelType;
@@ -21,14 +22,7 @@ type ChatboxProps = {
 
 export default function Chatbox({ level, messages }: ChatboxProps) {
   const { name, imageUrl, position } = level;
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(true);
-
-  const tempProfile: ProfileType = {
-    name: "Elon",
-    image: "https://github.com/shadcn.png",
-    position: "CTO, Tesla",
-  };
 
   useEffect(() => {
     setOpen(true);
@@ -38,10 +32,9 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          className="w-24 rounded-full px-4 py-2 font-bold"
+          className="w-32 rounded-full px-4 py-2 text-xl font-bold"
           variant="secondary"
           onClick={() => setOpen(!open)}
-          ref={buttonRef}
         >
           <MessageSquare className="mr-2 inline-block" />
           Chat
@@ -53,19 +46,14 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <div className="flex justify-between">
               <div className="flex flex-row gap-x-4">
                 <Avatar>
-                  {level.name == "Elon" ? (
-                    <Image
-                      src={require("../../images/elonmusk.jpg")}
-                      alt="Elon Musk"
-                      width={50}
-                      height={50}
-                    />
-                  ) : (
-                    <>
-                      <AvatarImage src={level.imageUrl} alt="@shadcn" />
-                      <AvatarFallback>{name}</AvatarFallback>
-                    </>
-                  )}
+                  <AvatarImage
+                    className="object-cover"
+                    width={100}
+                    height={100}
+                    src={level.imageUrl}
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>{name}</AvatarFallback>
                 </Avatar>
                 <div>
                   <div className="text-base font-bold">{name}</div>
@@ -79,12 +67,14 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
             <ScrollArea className="h-72 gap-4 pr-6">
               <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
-                  <div
+                  <Message
                     key={index}
-                    className="block rounded-e-xl rounded-es-xl bg-accent p-4"
-                  >
-                    {message}
-                  </div>
+                    telegramMessage={{
+                      sender: level.name,
+                      message: message,
+                      imageUrl: level.imageUrl,
+                    }}
+                  />
                 ))}
               </div>
             </ScrollArea>

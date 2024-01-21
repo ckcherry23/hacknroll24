@@ -13,6 +13,9 @@ export default function CodeEditor() {
         extensions={[autocompletion()]}
         // @ts-expect-error: Weird typing issue only
         extensionsKeymap={[completionKeymap]}
+        style={{
+          height: `450px`,
+        }}
           />
     </>
   )

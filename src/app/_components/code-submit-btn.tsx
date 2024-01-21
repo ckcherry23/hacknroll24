@@ -28,10 +28,10 @@ export default function CodeSubmitButton({
           alert("Don't you dare turn up shoddy work, intern");
         }
       }}
-      className="mt-4 w-full"
+      className="mt-4 w-full font-mono"
     >
       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-      READY FOR REVIEW
+      Ready for Review
     </Button>
   );
 }

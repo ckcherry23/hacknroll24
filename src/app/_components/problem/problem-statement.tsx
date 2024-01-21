@@ -28,7 +28,7 @@ export default function ProblemStatement({ level, fail }: ProblemProps) {
 
 function Timer(props: { fail: any }) {
   const { fail } = props;
-  const [timeLeft, setTimeLeft] = useState(60 * 5);
+  const [timeLeft, setTimeLeft] = useState(5);
 
   // Use the useEffect hook to set up the timer
   useEffect(() => {
@@ -42,8 +42,8 @@ function Timer(props: { fail: any }) {
 
   useEffect(() => {
     if (timeLeft < 0) {
-      alert("Times up! You're fired");
       fail();
+      alert("Times up! You're fired");
     }
   }, [timeLeft]);
 

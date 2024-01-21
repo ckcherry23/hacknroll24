@@ -35,7 +35,7 @@ export default function Stage({
     onSubmit(code);
   };
   return (
-    <div className="flex w-full flex-col space-y-10 p-20">
+    <div className="flex w-full min-h-screen flex-col space-y-6 p-10">
       <ProblemStatement fail={fail} level={level} />
       <SandpackProvider
         theme={"dark"}
@@ -55,8 +55,11 @@ export default function Stage({
             code: code,
           },
         }}
+        style={{
+          height: `450px`,
+        }}
       >
-        <SandpackLayout className="flex-grow">
+        <SandpackLayout className="flex-grow h-full">
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
@@ -65,7 +68,7 @@ export default function Stage({
           <Button
             disabled={loading}
             onClick={advance}
-            className="mt-4 w-full uppercase"
+            className="mt-6 w-full uppercase"
           >
             Accept Promotion
           </Button>
