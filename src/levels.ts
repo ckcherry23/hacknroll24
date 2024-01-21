@@ -27,6 +27,7 @@ export const levels: LevelType[] = [
     conclusionText:
       "After getting your manager some coffee, you got straight back into work, only going back home at 9pm. Although your first day wasn't the best, you're confident that this company will be a stepping stone towards a greater future",
     conclusionImage: "/coffee.jpg",
+    personVoice: "Donald Trump",
   },
   {
     levelNo: "2",
@@ -87,6 +88,7 @@ export default function ToggleButton() {
     conclusionText:
       "You stayed back until 8pm to help Sarah with her code. She was so grateful that she bought you a drink. Haha, just kidding. She left exatly at 5pm, leaving you alone in the office in yet another silent night. Still, you're certain that there is a light at the end of this tunnel. Once you're there, you'll be able to earn enough money to not work at this stupid job anymore!",
     conclusionImage: "/overtime.jpg",
+    personVoice: "Taylor Swift",
   },
 
   {
@@ -124,5 +126,6 @@ export default CentredDiv
     conclusionText:
       "You really met Elon! But did he really just ask you to work next weekend again?",
     conclusionImage: "/confused.jpeg",
+    personVoice: "Elon Musk",
   },
 ];

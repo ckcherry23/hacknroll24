@@ -2,7 +2,7 @@ export type ProfileType = {
   name: string;
   image: string;
   position: string;
-}
+};
 
 export type LevelType = {
   levelNo: string;
@@ -19,7 +19,8 @@ export type LevelType = {
   promotion?: string;
   conclusionText?: string;
   conclusionImage?: string;
-}
+  personVoice: string;
+};
 
 export enum Persona {
   MANAGER = "Manager",
@@ -32,4 +33,4 @@ export type TelegramMessage = {
   sender: string;
   message: string;
   delay?: number;
-}
+};

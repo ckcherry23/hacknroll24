@@ -70,7 +70,6 @@ export default function Home() {
       >
         <Terminal />
       </motion.div>
-      <Toaster />
     </main>
   );
 }

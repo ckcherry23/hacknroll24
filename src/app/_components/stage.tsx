@@ -59,7 +59,7 @@ export default function Stage({
           height: `450px`,
         }}
       >
-        <SandpackLayout className="flex-grow h-full">
+        <SandpackLayout className="flex-gro h-full">
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>

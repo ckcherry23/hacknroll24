@@ -115,6 +115,7 @@ export default function Level({ level }: LevelProps) {
         correctness: level.correctness!,
         levelNo: level.levelNo,
         code: code,
+        personVoice: level.personVoice,
       });
     }
   };
@@ -122,14 +123,8 @@ export default function Level({ level }: LevelProps) {
   const advance = () => {
     setCompletedLevels((prev) => [...prev, level.levelNo]);
     const newLevel = parseInt(level.levelNo);
-    if (newLevel < levels.length) {
-      const value = newLevel == 1 ? "one"
-        : newLevel == 2 ? "two"
-        : "three"
-      router.push(`/cutscene/${value}`);
-    } else {
-      router.push(`/end`);
-    }
+    const value = newLevel == 1 ? "one" : newLevel == 2 ? "two" : "three";
+    router.push(`/cutscene/${value}`);
   };
 
   const fail = () => {
@@ -180,12 +175,12 @@ export default function Level({ level }: LevelProps) {
           </DialogContent>
         </Dialog>
 
-        {/* <audio
+        <audio
           src={audioUrl}
           preload="auto"
           style={{ display: "none" }}
           autoPlay
-        ></audio> */}
+        ></audio>
       </div>
     </main>
   );
