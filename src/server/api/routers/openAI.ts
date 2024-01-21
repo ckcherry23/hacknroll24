@@ -86,10 +86,10 @@ const voices: Record<string, string> = {
 type TTSProps = {
   text: string;
   emotion_name: string;
-  person_voice: string;
+  personVoice: string;
 };
 
-const tts = async ({ text, emotion_name, person_voice }: TTSProps) => {
+const tts = async ({ text, emotion_name, personVoice }: TTSProps) => {
   const data = new FormData();
   data.append("isCancel", "true");
   data.append("accent", "English(US)");
@@ -97,7 +97,7 @@ const tts = async ({ text, emotion_name, person_voice }: TTSProps) => {
   data.append("text", text);
   data.append("speed", "1");
   data.append("volume", "50");
-  data.append("voice_id", voices[person_voice]!);
+  data.append("voice_id", voices[personVoice]!);
   data.append("article_title", "Unnamed");
   data.append("token", env.TTS_TOKEN);
 
@@ -142,6 +142,7 @@ export const aiRouter = createTRPCRouter({
         message: z.string(),
         persona: personaSchema,
         correctness: z.number(),
+        personVoice: z.string(),
       }),
     )
     .output(
@@ -151,7 +152,12 @@ export const aiRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      const { message, persona, correctness: correctnessThreshold } = input;
+      const {
+        message,
+        persona,
+        correctness: correctnessThreshold,
+        personVoice,
+      } = input;
       const completion =
         (await chatCompletion(message, persona, correctnessThreshold)) ?? "";
 
@@ -160,7 +166,7 @@ export const aiRouter = createTRPCRouter({
         audio_url = await tts({
           text: completion,
           emotion_name: "Default",
-          person_voice: "Elon Musk",
+          personVoice,
         });
       } catch (err) {
         console.error("Something went wrong with the TTS", err);

@@ -5,7 +5,9 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 
 const voices: Record<string, string> = {
+  "Donald Trump": "67aef070-5d4b-11ee-a861-00163e2ac61b",
   "Elon Musk": "67ada61f-5d4b-11ee-a861-00163e2ac61b",
+  "Taylor Swift": "67ae4751-5d4b-11ee-a861-00163e2ac61b",
 };
 
 export const ttsRouter = createTRPCRouter({
@@ -62,6 +64,6 @@ export const ttsRouter = createTRPCRouter({
 
       const response = await axios(config);
       console.log(response.data);
-      return response.data;
+      return response.data.data.oss_url;
     }),
 });
