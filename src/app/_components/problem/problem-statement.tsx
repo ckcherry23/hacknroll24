@@ -11,7 +11,7 @@ type ProblemProps = {
 export default function ProblemStatement({ level, fail }: ProblemProps) {
   const { levelNo, challenge } = level;
   return (
-    <Card>
+    <Card className="bg-gradient bg-accent/50 backdrop-blur-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Level: {levelNo}</h1>
