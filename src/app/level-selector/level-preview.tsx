@@ -28,17 +28,17 @@ export default function LevelPreview({ level }: LevelPreviewProps) {
             <Image
               src={`/locked.png`}
               alt="locked"
-              width={`100`}
-              height={`100`}
+              width={`50`}
+              height={`50`}
             />
           </div>
         )}
       </div>
       <div
-        className={`flex w-[800px] flex-col gap-8 pt-12 ${!isUnlocked && "opacity-20"}`}
+        className={`flex flex-col gap-4 pt-12 ${!isUnlocked && "opacity-20"}`}
       >
-        <div className="text-4xl">Level {level.levelNo} Boss</div>
-        <div className="text-7xl">{level.position}</div>
+        <div className="text-2xl">Level {level.levelNo} Boss</div>
+        <div className="text-4xl">{level.position}</div>
         <Link href={isUnlocked ? `level/${level.levelNo}` : "#"}>
           <Button disabled={!isUnlocked}>Accept Offer</Button>
         </Link>
