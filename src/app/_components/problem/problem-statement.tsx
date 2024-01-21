@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { type LevelType } from "@/lib/types";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 type ProblemProps = {
   level: LevelType;
@@ -29,11 +30,12 @@ export default function ProblemStatement({ level, fail }: ProblemProps) {
 function Timer(props: { fail: any }) {
   const { fail } = props;
   const [timeLeft, setTimeLeft] = useState(5);
+  const [toastSent, setToastSent] = useState(false);
 
   // Use the useEffect hook to set up the timer
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((timeLeft) => timeLeft - 1);
+      setTimeLeft((timeLeft) => Math.max(timeLeft - 1, 0));
     }, 1000);
 
     // Clean up the interval when the component unmounts
@@ -41,9 +43,12 @@ function Timer(props: { fail: any }) {
   }, []);
 
   useEffect(() => {
-    if (timeLeft < 0) {
-      fail();
-      alert("Times up! You're fired");
+    if (timeLeft <= 0 && !toastSent) {
+      toast.error("Times up! You're fired");
+      setToastSent(true);
+      setTimeout(() => {
+        fail();
+      }, 2000);
     }
   }, [timeLeft]);
 
@@ -67,6 +72,7 @@ function Timer(props: { fail: any }) {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

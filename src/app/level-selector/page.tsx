@@ -28,7 +28,7 @@ export default function LevelSelector() {
             );
           })}
           <CarouselItem key={levels.length} className="basis-1/3">
-            {/* <div className="text-3xl">More levels coming soon!</div> */}
+            <div className="text-3xl">More levels coming soon!</div>
           </CarouselItem>
         </CarouselContent>
         <CarouselPrevious />
