@@ -4,21 +4,15 @@ import OpenAI from "openai";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { env } from "@/env";
 import { type Persona, personaPrompts, personaSchema } from "@/lib/persona";
+import { diffChars, diffLines } from "diff";
+import { levels } from "@/levels";
 
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
-async function chatAutoFail(
-  text: string,
-  persona: Persona,
-) {
+async function chatAutoFail(text: string, persona: Persona) {
   const prompt = personaPrompts[persona];
-  const responseFormat = `{
-    "status": "FAIL",
-    "comment": <Code review comment>
-  }`;
-
   const completion = await openai.chat.completions.create({
     messages: [
       {
@@ -31,16 +25,14 @@ async function chatAutoFail(
         2) You check correctness by comparing the intern's code and the sample answer.
         3) Limit your responses to 100 characters.
         4) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
-        5) Return in a proper JSON format, and absolutely nothing else: 
-        ${responseFormat}
-        `,
+        COMMENT:`,
       },
       { role: "user", content: text },
     ],
     model: "gpt-3.5-turbo",
   });
 
-  console.log("content", completion.choices[0]?.message.content)
+  console.log("content", completion.choices[0]?.message.content);
   return completion.choices[0]?.message.content;
 }
 
@@ -48,37 +40,35 @@ async function chatCompletion(
   text: string,
   persona: Persona,
   correctness: number,
+  similarityScore: number,
 ) {
   const prompt = personaPrompts[persona];
-  const responseFormat = `{
-    "status": <respond with PASS if the correctness of the intern's code passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
-    "comment": <Code review comment>
-  }`;
+
+  const content = `
+${persona}.
+The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
+SCORE: ${(similarityScore * 100).toFixed(0)}%.
+THRESHOLD: ${correctness * 100}%.
+${prompt}.
+1) Code is good if similarity exceeds the Similarity Threshold. In this case, your comment should follow the sample correct response format loosely.
+2) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and become much harsher the lower the similarity score. 
+3) For code review comments, also add 2 rude hints that help the intern to fix their code.
+4) Limit your responses to 100 characters.
+5) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
+COMMENT:`;
 
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
-        content: `
-        ${persona}.
-        The following prompt contains both the intern's code written in React, the sample answer, which is the intended answer, the context, as well as the sample response for correct and wrong answers.
-        ${prompt}.
-        1) You check correctness similarity by comparing the intern's code and the sample answer. Correctness Threshold = ${correctness * 100}%.
-        2) Code is good if similarity exceeds the Similarity Threshold. In this case, your comment should follow the sample correct response format loosely.
-        3) If the similarity is lower than the Similarity Threshold, provide a brutal code review comment that suit the persona and become much harsher the lower the similarity score. 
-        4) For code review comments, also add 2 rude hints that help the intern to fix their code.
-        5) Limit your responses to 100 characters.
-        6) If the given code is exactly the same as the initial code or it completely ignores the given context, scold the intern for not doing anything.
-        7) Return in a proper JSON format, and absolutely nothing else: 
-        ${responseFormat}
-        `,
+        content: content,
       },
       { role: "user", content: text },
     ],
     model: "gpt-3.5-turbo",
   });
 
-  console.log("content", completion.choices[0]?.message.content)
+  console.log("content", completion.choices[0]?.message.content);
   return completion.choices[0]?.message.content;
 }
 
@@ -144,18 +134,43 @@ export const aiRouter = createTRPCRouter({
         message: z.string(),
         persona: personaSchema,
         correctness: z.number(),
+        levelNo: z.string(),
+        code: z.string(),
       }),
     )
     .output(
       z.object({
-        message: z.string(),
+        message: z.object({
+          status: z.string(),
+          comment: z.string(),
+        }),
         audio_url: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { message, persona, correctness: correctnessThreshold } = input;
+      const {
+        message,
+        persona,
+        correctness: correctnessThreshold,
+        levelNo,
+      } = input;
+
+      const sampleAnswer =
+        levels.find((level) => level.levelNo === levelNo)?.sampleAnswer ?? "";
+      const diff = diffLines(sampleAnswer, input.code);
+      const diffParts = diff.filter(
+        (part) => part.added ?? part.removed,
+      ).length;
+      const similarityScore = 1 - diffParts / sampleAnswer.length;
+      const status = similarityScore >= correctnessThreshold ? "PASS" : "FAIL";
+
       const completion =
-        (await chatCompletion(message, persona, correctnessThreshold)) ?? "";
+        (await chatCompletion(
+          message,
+          persona,
+          correctnessThreshold,
+          similarityScore,
+        )) ?? "";
 
       const audio_url = "";
       // try {
@@ -168,41 +183,49 @@ export const aiRouter = createTRPCRouter({
       //   console.error("Something went wrong with the TTS", err);
       // }
       return {
-        message: completion,
+        message: {
+          status,
+          comment: completion,
+        },
         audio_url,
       };
     }),
   autoFail: publicProcedure
-  .input(
-    z.object({
-      message: z.string(),
-      persona: personaSchema,
-    }),
-  )
-  .output(
-    z.object({
-      message: z.string(),
-      audio_url: z.string(),
-    }),
-  )
-  .mutation(async ({ input }) => {
-    const { message, persona } = input;
-    const completion =
-      (await chatAutoFail(message, persona)) ?? "";
+    .input(
+      z.object({
+        message: z.string(),
+        persona: personaSchema,
+      }),
+    )
+    .output(
+      z.object({
+        message: z.object({
+          comment: z.string(),
+          status: z.string(),
+        }),
+        audio_url: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { message, persona } = input;
+      const comment = (await chatAutoFail(message, persona)) ?? "";
 
-    const audio_url = "";
-    // try {
-    //   audio_url = await tts({
-    //     text: completion,
-    //     emotion_name: "Default",
-    //     person_voice: "Elon Musk",
-    //   });
-    // } catch (err) {
-    //   console.error("Something went wrong with the TTS", err);
-    // }
-    return {
-      message: completion,
-      audio_url,
-    };
-  })
+      const audio_url = "";
+      // try {
+      //   audio_url = await tts({
+      //     text: completion,
+      //     emotion_name: "Default",
+      //     person_voice: "Elon Musk",
+      //   });
+      // } catch (err) {
+      //   console.error("Something went wrong with the TTS", err);
+      // }
+      return {
+        message: {
+          comment,
+          status: "FAIL",
+        },
+        audio_url,
+      };
+    }),
 });
