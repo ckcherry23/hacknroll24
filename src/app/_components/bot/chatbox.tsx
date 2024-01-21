@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { LevelType, type ProfileType } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CardHeader, Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { type LevelType, type ProfileType } from "@/lib/types";
 import Image from "next/image";
+import { MessageSquare } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type ChatboxProps = {
   level: LevelType;
@@ -13,9 +20,9 @@ type ChatboxProps = {
 };
 
 export default function Chatbox({ level, messages }: ChatboxProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-
   const { name, imageUrl, position } = level;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(true);
 
   const tempProfile: ProfileType = {
     name: "Elon",
@@ -24,12 +31,23 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
   };
 
   useEffect(() => {
-    setIsOpen(true);
+    setOpen(true);
   }, [messages]);
 
   return (
-    <div className="">
-      {isOpen ? (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          className="w-24 rounded-full px-4 py-2 font-bold"
+          variant="secondary"
+          onClick={() => setOpen(!open)}
+          ref={buttonRef}
+        >
+          <MessageSquare className="mr-2 inline-block" />
+          Chat
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[35vw] max-w-xl">
         <Card>
           <CardHeader>
             <div className="flex justify-between">
@@ -54,15 +72,12 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                   <div className="text-base text-gray-200">{position}</div>
                 </div>
               </div>
-              <Button onClick={() => setIsOpen(false)} variant="secondary">
-                X
-              </Button>
             </div>
             {/* <div className='text-gray-200 italic font-bold uppercase'>Valuable feedback</div> */}
           </CardHeader>
-          <CardContent>
-            <div className="flex w-full flex-col">
-              <div className="max-h-[600px] flex-grow space-y-4 overflow-y-scroll">
+          <CardContent className="max-h-96 pr-0">
+            <ScrollArea className="h-72 gap-4 pr-6">
+              <div className="flex w-full flex-col gap-2">
                 {messages.map((message, index) => (
                   <div
                     key={index}
@@ -71,31 +86,11 @@ export default function Chatbox({ level, messages }: ChatboxProps) {
                     {message}
                   </div>
                 ))}
-                {/* <div className='flex justify-between'>
-                  <input type="text" defaultValue='You are not allowed to send messages' className='w-full rounded p-2' disabled={true} />
-                  <Button disabled={true} variant='secondary'>Send</Button>
-                </div> */}
               </div>
-            </div>
+            </ScrollArea>
           </CardContent>
         </Card>
-      ) : (
-        // <Button
-        //   className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        //   onClick={() => setIsOpen(true)}
-        //   variant="secondary"
-        // >
-        //   Open Chatbox
-        // </Button>
-
-        <Button
-          className="float-right m-auto w-48 rounded-full px-4 py-2 font-bold text-white"
-          onClick={() => setIsOpen(true)}
-          variant="secondary"
-        >
-          Open Chatbox
-        </Button>
-      )}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }

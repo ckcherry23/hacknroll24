@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { levels } from "@/levels";
 import { useLocalStorage } from "usehooks-ts";
+import Image from "next/image";
 
 type LevelProps = {
   level: LevelType;
@@ -55,8 +56,8 @@ export default function Level({ level }: LevelProps) {
         setPassed(true);
         setOpen(true);
       } else {
-        if (failureCount >= 2) {
-          lose();
+        if (failureCount >= 3) {
+          fail();
         }
         setFailureCount(failureCount + 1);
       }
@@ -91,18 +92,25 @@ export default function Level({ level }: LevelProps) {
     }
   };
 
-  const lose = () => {
+  const fail = () => {
     router.push(`/failure`);
   };
 
   return (
     <main className="flex min-h-screen flex-col">
       <div className="flex flex-row">
-        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] flex-col px-4 py-4">
+        <div className="fixed bottom-0 right-0 z-10 flex w-[600px] justify-end px-4 py-4">
           <ChatBox level={level} messages={messages} />
         </div>
         <div className="flex w-full">
-          <Stage level={level} onSubmit={onSubmit} loading={loading} />
+          <Stage
+            fail={fail}
+            level={level}
+            loading={loading}
+            passed={passed}
+            advance={advance}
+            onSubmit={onSubmit}
+          />
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white"></p>
@@ -111,6 +119,12 @@ export default function Level({ level }: LevelProps) {
           <DialogContent>
             <DialogHeader>You are done for the day!</DialogHeader>
             <DialogDescription className="text-base">
+              <Image
+                src={level.conclusionImage!}
+                alt={`${level.levelNo} conclusion`}
+                width={500}
+                height={250}
+              />
               {level.conclusionText}
               <br />
               <br />A hard day&apos;s work makes even water taste sweet. Due to

@@ -18,7 +18,7 @@ async function chatCompletion(
   const responseFormat = `{
     "status": <respond with PASS if the correctness of the intern's code passes the CORRECTNESS threshold of ${correctness * 100}%, and FAIL otherwise>,
     "comment": <Code review comment>
-  }`
+  }`;
 
   const completion = await openai.chat.completions.create({
     messages: [
@@ -121,7 +121,7 @@ export const aiRouter = createTRPCRouter({
       const completion =
         (await chatCompletion(message, persona, correctnessThreshold)) ?? "";
 
-      let audio_url = "";
+      const audio_url = "";
       // try {
       //   audio_url = await tts({
       //     text: completion,
