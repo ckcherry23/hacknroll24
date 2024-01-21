@@ -35,7 +35,7 @@ export default function Stage({
     onSubmit(code);
   };
   return (
-    <div className="flex min-h-screen w-full flex-col space-y-6 p-10">
+    <div className="flex w-full min-h-screen flex-col space-y-6 px-20 py-10">
       <ProblemStatement fail={fail} level={level} />
       <SandpackProvider
         theme={"dark"}
