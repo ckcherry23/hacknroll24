@@ -202,22 +202,23 @@ export const aiRouter = createTRPCRouter({
       z.object({
         message: z.string(),
         persona: personaSchema,
+        personVoice: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { message, persona } = input;
+      const { message, persona, personVoice } = input;
       const comment = (await chatAutoFail(message, persona)) ?? "";
 
-      const audio_url = "";
-      // try {
-      //   audio_url = await tts({
-      //     text: completion,
-      //     emotion_name: "Default",
-      //     person_voice: "Elon Musk",
-      //   });
-      // } catch (err) {
-      //   console.error("Something went wrong with the TTS", err);
-      // }
+      let audio_url = "";
+      try {
+        audio_url = await tts({
+          text: comment,
+          emotion_name: "Default",
+          personVoice,
+        });
+      } catch (err) {
+        console.error("Something went wrong with the TTS", err);
+      }
       return {
         message: {
           comment,

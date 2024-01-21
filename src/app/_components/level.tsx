@@ -103,6 +103,7 @@ export default function Level({ level }: LevelProps) {
       autofailMutation.mutate({
         message: textPrompt,
         persona: level.persona,
+        personVoice: level.personVoice,
       });
     } else {
       textMutation.mutate({
