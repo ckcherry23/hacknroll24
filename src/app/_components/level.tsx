@@ -122,14 +122,10 @@ export default function Level({ level }: LevelProps) {
   const advance = () => {
     setCompletedLevels((prev) => [...prev, level.levelNo]);
     const newLevel = parseInt(level.levelNo);
-    if (newLevel < levels.length) {
-      const value = newLevel == 1 ? "one"
-        : newLevel == 2 ? "two"
-        : "three"
-      router.push(`/cutscene/${value}`);
-    } else {
-      router.push(`/end`);
-    }
+    const value = newLevel == 1 ? "one"
+      : newLevel == 2 ? "two"
+      : "three"
+    router.push(`/cutscene/${value}`);
   };
 
   const fail = () => {
