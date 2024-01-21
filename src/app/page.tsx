@@ -31,7 +31,7 @@ export default function Home() {
     <Spotlight className="group">
       <SpotlightCard>
         <main className="flex min-h-screen flex-col items-center justify-center gap-2 font-bold">
-          <audio src="/lobby.mp3" autoPlay={true} hidden={true} ></audio>
+          <audio src="/lobby.mp3" autoPlay={true} hidden={true} loop={true} ></audio>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
