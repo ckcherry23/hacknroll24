@@ -9,10 +9,7 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
-async function chatAutoFail(
-  text: string,
-  persona: Persona,
-) {
+async function chatAutoFail(text: string, persona: Persona) {
   const prompt = personaPrompts[persona];
   const responseFormat = `{
     "status": "FAIL",
@@ -40,7 +37,7 @@ async function chatAutoFail(
     model: "gpt-3.5-turbo",
   });
 
-  console.log("content", completion.choices[0]?.message.content)
+  console.log("content", completion.choices[0]?.message.content);
   return completion.choices[0]?.message.content;
 }
 
@@ -78,7 +75,7 @@ async function chatCompletion(
     model: "gpt-3.5-turbo",
   });
 
-  console.log("content", completion.choices[0]?.message.content)
+  console.log("content", completion.choices[0]?.message.content);
   return completion.choices[0]?.message.content;
 }
 
@@ -134,6 +131,7 @@ const tts = async ({ text, emotion_name, person_voice }: TTSProps) => {
   };
 
   const response = await axios(config);
+  console.log(response);
   return response.data.data.oss_url;
 };
 
@@ -157,6 +155,40 @@ export const aiRouter = createTRPCRouter({
       const completion =
         (await chatCompletion(message, persona, correctnessThreshold)) ?? "";
 
+      let audio_url = "";
+      try {
+        audio_url = await tts({
+          text: completion,
+          emotion_name: "Default",
+          person_voice: "Elon Musk",
+        });
+      } catch (err) {
+        console.error("Something went wrong with the TTS", err);
+      }
+
+      console.log(audio_url);
+      return {
+        message: completion,
+        audio_url,
+      };
+    }),
+  autoFail: publicProcedure
+    .input(
+      z.object({
+        message: z.string(),
+        persona: personaSchema,
+      }),
+    )
+    .output(
+      z.object({
+        message: z.string(),
+        audio_url: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { message, persona } = input;
+      const completion = (await chatAutoFail(message, persona)) ?? "";
+
       const audio_url = "";
       // try {
       //   audio_url = await tts({
@@ -172,37 +204,4 @@ export const aiRouter = createTRPCRouter({
         audio_url,
       };
     }),
-  autoFail: publicProcedure
-  .input(
-    z.object({
-      message: z.string(),
-      persona: personaSchema,
-    }),
-  )
-  .output(
-    z.object({
-      message: z.string(),
-      audio_url: z.string(),
-    }),
-  )
-  .mutation(async ({ input }) => {
-    const { message, persona } = input;
-    const completion =
-      (await chatAutoFail(message, persona)) ?? "";
-
-    const audio_url = "";
-    // try {
-    //   audio_url = await tts({
-    //     text: completion,
-    //     emotion_name: "Default",
-    //     person_voice: "Elon Musk",
-    //   });
-    // } catch (err) {
-    //   console.error("Something went wrong with the TTS", err);
-    // }
-    return {
-      message: completion,
-      audio_url,
-    };
-  })
 });

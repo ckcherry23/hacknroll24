@@ -176,12 +176,12 @@ export default function Level({ level }: LevelProps) {
           </DialogContent>
         </Dialog>
 
-        {/* <audio
+        <audio
           src={audioUrl}
           preload="auto"
           style={{ display: "none" }}
           autoPlay
-        ></audio> */}
+        ></audio>
       </div>
     </main>
   );

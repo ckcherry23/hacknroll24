@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useActiveCode } from "@codesandbox/sandpack-react";
 import { Loader2 } from "lucide-react";
 import React from "react";
+import toast from "react-hot-toast";
 
 type CodeSubmitButtonProps = {
   client: unknown;
@@ -25,10 +26,10 @@ export default function CodeSubmitButton({
         if (client && client.errors.length == 0) {
           onSubmit(code);
         } else {
-          alert("Don't you dare turn up shoddy work, intern");
+          toast.error("Don't you dare turn up shoddy work, intern");
         }
       }}
-      className="mt-4 w-full font-mono"
+      className="mb-8 mt-4 w-full font-mono"
     >
       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       Ready for Review

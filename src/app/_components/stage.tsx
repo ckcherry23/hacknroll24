@@ -35,7 +35,7 @@ export default function Stage({
     onSubmit(code);
   };
   return (
-    <div className="flex w-full min-h-screen flex-col space-y-6 p-10">
+    <div className="flex min-h-screen w-full flex-col space-y-6 p-10">
       <ProblemStatement fail={fail} level={level} />
       <SandpackProvider
         theme={"dark"}
@@ -59,7 +59,7 @@ export default function Stage({
           height: `450px`,
         }}
       >
-        <SandpackLayout className="flex-grow h-full">
+        <SandpackLayout className="flex-gro h-full">
           <CodeEditor />
           <CodePreview setClient={setClient} />
         </SandpackLayout>
