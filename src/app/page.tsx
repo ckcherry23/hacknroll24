@@ -6,6 +6,7 @@ import Terminal from "./_components/terminal";
 import { motion } from "framer-motion";
 import { Toaster } from "react-hot-toast";
 import Spotlight, { SpotlightCard } from "@/components/ui/spotlight";
+import { useEffect } from "react";
 
 export default function Home() {
   noStore();
@@ -16,10 +17,21 @@ export default function Home() {
   //   person_voice: "Elon Musk",
   // });
 
+  useEffect(() => {
+    window.addEventListener("DOMContentLoaded", event => {
+      const audio = document.querySelector("audio");
+      if (audio) {
+        audio.volume = 0.2;
+      }
+      audio?.play();
+    });
+  }, []);
+
   return (
     <Spotlight className="group">
       <SpotlightCard>
         <main className="flex min-h-screen flex-col items-center justify-center gap-2 font-bold">
+          <audio src="/lobby.mp3" autoPlay={true} aria-disabled={true} ></audio>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

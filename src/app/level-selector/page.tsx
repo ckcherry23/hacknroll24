@@ -2,15 +2,9 @@
 
 import { levels } from "@/levels";
 import LevelPreview from "./level-preview";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image'
+import { useEffect } from "react";
 
 export default function LevelSelector() {
   const resetProgress = () => {
@@ -18,8 +12,19 @@ export default function LevelSelector() {
     window.location.reload();
   };
 
+  useEffect(() => {
+    window.addEventListener("DOMContentLoaded", event => {
+      const audio = document.querySelector("audio");
+      if (audio) {
+        audio.volume = 0.2;
+      }
+      audio?.play();
+    });
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-start justify-center bg-[url('/bg.jpeg')] bg-contain">
+      <audio src="/lobby.mp3" autoPlay={true} aria-disabled={true} ></audio>
       <div className="flex items-start justify-start">
         <div className="hide-scroll-bar py-24 px-40">
           <div className="flex space-x-[650px] ">
