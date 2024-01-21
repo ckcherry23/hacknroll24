@@ -8,25 +8,25 @@ export const messages: TelegramMessage[] = [
     delay: 0
   },
   {
-    message: "Yeah, apparently he came from a public school!",
+    message: "Yeah, apparently she came from a public school!",
     sender: "Susan",
     imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
     delay: 1
   },
   {
-    message: "Wait, he's not in this group chat right?",
+    message: "Wait, she's not in this group chat right?",
     sender: "Susan",
     imageUrl: "https://avatars.githubusercontent.com/u/5?v=5",
     delay: 2
   },
   {
-    message: "Yeah no, we didn't invite him. What for?",
+    message: "Yeah no, we didn't invite her. What for?",
     sender: "Sarah",
     imageUrl: "/sarah.jpeg",
     delay: 3
   },
   {
-    message: "Maybe he'll learn. But he better learn quick.",
+    message: "Maybe she'll learn. But she better learn quick.",
     sender: "John",
     imageUrl: "https://avatars.githubusercontent.com/u/1?v=5",
     delay: 4

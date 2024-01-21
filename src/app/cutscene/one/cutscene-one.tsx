@@ -14,7 +14,7 @@ export default function CutsceneOne() {
   const [open, setOpen] = useState(false)
   const router = useRouter();
   useEffect(() => {
-    const totalTime = (messages[messages.length-1]?.delay ?? 0 + 1) * 1000;
+    const totalTime = (messages[messages.length-1]?.delay ?? 0 + 2) * 1000;
     console.log(messages);
     console.log(totalTime)
     setTimeout(() => {

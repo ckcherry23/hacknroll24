@@ -9,7 +9,7 @@ export default function EndPage() {
         <Image src={"/depressed.jpeg"} alt="Depressed" className='object-cover object-top w-full h-[500px]' width={500} height={250} />
         <CardHeader className='text-4xl font-bold'>You never did reach senior software engineer intern</CardHeader>
         <CardDescription className='px-6 text-lg pb-6'>
-          Although you managed to get a full-time internship at X, your tenure seemed to be indefinite as you never got promoted to a full-time software engineer.
+          Although you managed to get a full-time internship at X, your tenure seemed to be indefinite as ever since you were promoted to perpertually full-time software engineer intern.
           <br/><br/>
           <p className='text-2xl my-4 text-center font-bold'>CODE MONKEY END</p>
           <p className='text-6xl text-center w-full mt-4'>🧑🏻‍💻🐒</p>

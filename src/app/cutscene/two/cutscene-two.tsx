@@ -36,8 +36,8 @@ export default function CutsceneOne() {
           <DialogHeader>Another day, another day</DialogHeader>
           <DialogDescription>
             It&apos;s your first all-nighter. You&apos;re busy trying to finish
-            your project and Dave&apos;s. You start to regrest offering to help
-            him. Is he taking advantage of you? It&apos;s too late to think
+            your project and Sarah&apos;s. You start to regrest offering to help
+            her. Is she taking advantage of you? It&apos;s too late to think
             about it anyway
             <br />
             <br />
