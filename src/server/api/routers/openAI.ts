@@ -79,6 +79,8 @@ COMMENT:`;
 }
 
 const voices: Record<string, string> = {
+  "Donald Trump": "67aef070-5d4b-11ee-a861-00163e2ac61b",
+  "Taylor Swift": "67ae4751-5d4b-11ee-a861-00163e2ac61b",
   "Elon Musk": "67ada61f-5d4b-11ee-a861-00163e2ac61b",
 };
 
@@ -130,7 +132,7 @@ const tts = async ({ text, emotion_name, personVoice }: TTSProps) => {
   };
 
   const response = await axios(config);
-  console.log(response);
+  console.log(response.data);
   return response.data.data.oss_url;
 };
 
@@ -146,15 +148,6 @@ export const aiRouter = createTRPCRouter({
         personVoice: z.string(),
       }),
     )
-    .output(
-      z.object({
-        message: z.object({
-          status: z.string(),
-          comment: z.string(),
-        }),
-        audio_url: z.string(),
-      }),
-    )
     .mutation(async ({ input }) => {
       const {
         message,
@@ -163,6 +156,7 @@ export const aiRouter = createTRPCRouter({
         levelNo,
         personVoice,
       } = input;
+      console.log(input);
 
       const sampleAnswer =
         levels.find((level) => level.levelNo === levelNo)?.sampleAnswer ?? "";
@@ -195,7 +189,6 @@ export const aiRouter = createTRPCRouter({
         console.error("Something went wrong with the TTS", err);
       }
 
-      console.log(audio_url);
       return {
         message: {
           status,
@@ -209,31 +202,23 @@ export const aiRouter = createTRPCRouter({
       z.object({
         message: z.string(),
         persona: personaSchema,
-      }),
-    )
-    .output(
-      z.object({
-        message: z.object({
-          comment: z.string(),
-          status: z.string(),
-        }),
-        audio_url: z.string(),
+        personVoice: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { message, persona } = input;
+      const { message, persona, personVoice } = input;
       const comment = (await chatAutoFail(message, persona)) ?? "";
 
-      const audio_url = "";
-      // try {
-      //   audio_url = await tts({
-      //     text: completion,
-      //     emotion_name: "Default",
-      //     person_voice: "Elon Musk",
-      //   });
-      // } catch (err) {
-      //   console.error("Something went wrong with the TTS", err);
-      // }
+      let audio_url = "";
+      try {
+        audio_url = await tts({
+          text: comment,
+          emotion_name: "Default",
+          personVoice,
+        });
+      } catch (err) {
+        console.error("Something went wrong with the TTS", err);
+      }
       return {
         message: {
           comment,

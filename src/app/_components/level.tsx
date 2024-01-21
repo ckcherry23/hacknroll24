@@ -43,9 +43,6 @@ export default function Level({ level }: LevelProps) {
       setLoading(true);
     },
     onSuccess: (data) => {
-      console.log(data.audio_url);
-      console.log("data", data);
-      console.log("recevied data", data.message);
       const message = data.message;
       const status = message.status;
       const newMessage = message.comment;
@@ -71,7 +68,6 @@ export default function Level({ level }: LevelProps) {
       setLoading(true);
     },
     onSuccess: (data) => {
-      console.log("data", data);
       const message = data.message;
       const status = message.status;
       const newMessage = message.comment;
@@ -107,6 +103,7 @@ export default function Level({ level }: LevelProps) {
       autofailMutation.mutate({
         message: textPrompt,
         persona: level.persona,
+        personVoice: level.personVoice,
       });
     } else {
       textMutation.mutate({

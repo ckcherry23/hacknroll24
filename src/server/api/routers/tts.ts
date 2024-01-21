@@ -16,11 +16,13 @@ export const ttsRouter = createTRPCRouter({
       z.object({
         text: z.string(),
         emotion_name: z.string(),
-        person_voice: z.string(),
+        personVoice: z.string(),
       }),
     )
     .query(async ({ input }) => {
-      const { text, emotion_name, person_voice } = input;
+      const { text, emotion_name, personVoice } = input;
+
+      console.log("person voice", personVoice);
 
       const data = new FormData();
       data.append("isCancel", "true");
@@ -29,7 +31,7 @@ export const ttsRouter = createTRPCRouter({
       data.append("text", text);
       data.append("speed", "1");
       data.append("volume", "50");
-      data.append("voice_id", voices[person_voice]!);
+      data.append("voice_id", voices[personVoice]!);
       data.append("article_title", "Unnamed");
       data.append("token", env.TTS_TOKEN);
 
@@ -63,7 +65,7 @@ export const ttsRouter = createTRPCRouter({
       };
 
       const response = await axios(config);
-      console.log(response.data);
+      console.log(response.data.data);
       return response.data.data.oss_url;
     }),
 });
