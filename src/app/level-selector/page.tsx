@@ -24,7 +24,7 @@ export default function LevelSelector() {
 
   return (
     <main className="flex min-h-screen flex-col items-start justify-center bg-[url('/bg.jpeg')] bg-contain">
-      <audio src="/lobby.mp3" autoPlay={true} hidden={true} loop={true} ></audio>
+      <audio src="/lobby.mp3" autoPlay={true} hidden={true} ></audio>
       <div className="flex items-start justify-start">
         <div className="hide-scroll-bar py-24 px-40">
           <div className="flex space-x-[650px] ">
