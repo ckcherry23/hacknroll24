@@ -9,8 +9,6 @@ export const AppAudio = ({ tts }: any) => {
     }
   }, [tts]);
 
-  console.log(tts);
-
   return (
     <audio id="tss_audio" controls>
       <source src={tts.oss_url} type="audio/wav" />
